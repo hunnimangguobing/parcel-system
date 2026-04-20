@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>代收貨物管理系統 V5.5</title>
+    <title>昏尼ㄉ芒果冰🇰🇷代收運回</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -14,7 +14,7 @@
                 <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 sticky top-8">
                     <div class="bg-slate-900 p-6 flex justify-between items-center">
                         <div>
-                            <h1 class="text-white text-xl font-black">📦 {{ isEditing ? '修改代收資訊' : '代收貨物申請表單' }}</h1>
+                            <h1 class="text-white text-xl font-black">📦 {{ isEditing ? '修改代收資訊' : '韓國代收運回申請表單' }}</h1>
                             <p class="text-slate-400 text-[10px] uppercase tracking-widest mt-1">Parcel Management System</p>
                         </div>
                         <button v-if="isEditing" @click="cancelEdit" class="text-xs bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition">取消修改</button>
@@ -24,17 +24,17 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-bold text-slate-500 mb-1 ml-1">LINE 名字</label>
-                                <input v-model="form.lineName" type="text" placeholder="您的名稱" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
+                                <input v-model="form.lineName" type="text" placeholder="您的LINE名稱" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-500 mb-1 ml-1">代收代號</label>
-                                <input v-model="form.memberId" type="text" placeholder="例如:VIP01" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
+                                <input v-model="form.memberId" type="text" placeholder="例如: VIP01" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
                             </div>
                         </div>
 
                         <div>
                             <div class="flex justify-between items-center mb-3">
-                                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">代收品項明細</label>
+                                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">代收品項明細(同訂單填寫在同一筆即可，不用新增)</label>
                                 <button @click="addItem" class="text-xs text-blue-600 font-bold hover:text-blue-800 transition">+ 新增品項</button>
                             </div>
                             <div v-for="(item, index) in form.items" :key="index" class="bg-white p-4 rounded-2xl mb-4 border border-slate-100 shadow-sm relative">
@@ -42,12 +42,12 @@
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">品項名稱</label>
-                                        <input v-model="item.name" type="text" placeholder="BTS手燈" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
+                                        <input v-model="item.name" type="text" placeholder="例如: BTS手燈、BTS手燈包" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
                                     </div>
                                     <div class="grid grid-cols-2 gap-3">
                                         <div>
                                             <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">店家 / 平台</label>
-                                            <input v-model="item.platform" type="text" placeholder="weverse" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
+                                            <input v-model="item.platform" type="text" placeholder="例如: weverse" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
                                         </div>
                                         <div>
                                             <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">預計出貨日</label>

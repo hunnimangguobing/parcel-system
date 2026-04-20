@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>代收貨物管理系統 V2.2</title>
+    <title>代收貨物管理系統</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -13,12 +13,9 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-5">
                 <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 sticky top-8">
-                    <div class="bg-slate-900 p-6 flex justify-between items-center">
-                        <div>
-                            <h1 class="text-white text-xl font-black">📦 {{ isUpdating ? '更新配送資訊' : '韓國代收運回申請' }}</h1>
-                            <p class="text-slate-400 text-[10px] uppercase tracking-widest mt-1">Parcel Management System</p>
-                        </div>
-                        <button v-if="isUpdating" @click="cancelUpdate" class="text-xs bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition">取消更新</button>
+                    <div class="bg-slate-900 p-6 text-center">
+                        <h1 class="text-white text-xl font-black">📦 韓國代收貨物申請表單</h1>
+                        <p class="text-slate-400 text-[10px] uppercase tracking-widest mt-1">Parcel Management System</p>
                     </div>
                     
                     <div class="p-6 space-y-6">
@@ -33,15 +30,15 @@
                             </div>
                         </div>
 
-                        <div v-if="isUpdating" class="bg-blue-50 p-4 rounded-2xl border border-blue-100 space-y-3">
-                            <label class="block text-xs font-bold text-blue-500 uppercase">🚚 配送進度 (店家發貨後填寫)</label>
+                        <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 space-y-3">
+                            <label class="block text-xs font-bold text-blue-500 uppercase">🚚 配送單號 (店家已發貨再填寫，無則跳過)</label>
                             <div class="grid grid-cols-2 gap-2">
-                                <div flex flex-col>
-                                    <span class="text-[10px] text-blue-400 mb-1 ml-1 font-bold">物流單號</span>
+                                <div>
+                                    <span class="text-[10px] text-blue-400 mb-1 ml-1 font-bold uppercase">物流單號</span>
                                     <input v-model="form.trackingNumber" type="text" placeholder="純數字單號" class="w-full bg-white border-blue-200 rounded-lg p-2 text-sm border focus:ring-1 focus:ring-blue-400 outline-none">
                                 </div>
-                                <div flex flex-col>
-                                    <span class="text-[10px] text-blue-400 mb-1 ml-1 font-bold">實際寄出日期</span>
+                                <div>
+                                    <span class="text-[10px] text-blue-400 mb-1 ml-1 font-bold uppercase">實際寄出日</span>
                                     <input v-model="form.shipDate" type="date" class="w-full bg-white border-blue-200 rounded-lg p-2 text-sm border focus:ring-1 focus:ring-blue-400 outline-none">
                                 </div>
                             </div>
@@ -92,7 +89,7 @@
                         </div>
 
                         <button @click="submitForm" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black text-lg hover:bg-black hover:shadow-xl transition duration-300 active:scale-[0.98]">
-                            {{ isUpdating ? '更新配送單號' : '確認送出申請' }}
+                            確認送出申請
                         </button>
                     </div>
                 </div>
@@ -106,16 +103,13 @@
                     </h2>
                     
                     <div class="space-y-4">
-                        <div v-for="(rec, idx) in records" :key="idx" class="border border-slate-200 bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition">
+                        <div v-for="(rec, idx) in records" :key="idx" class="border border-slate-200 bg-white rounded-2xl p-5 shadow-sm">
                             <div class="flex justify-between items-start mb-4">
                                 <div>
                                     <div class="font-black text-slate-800 text-lg leading-tight">{{ rec.lineName }}</div>
                                     <div class="text-xs font-bold text-blue-600 uppercase tracking-tighter">代號: {{ rec.memberId }}</div>
                                 </div>
-                                <div class="flex gap-2">
-                                    <button @click="startUpdate(idx)" class="text-xs bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg font-bold hover:bg-blue-100 transition">更新單號</button>
-                                    <button @click="deleteRecord(idx)" class="text-xs bg-red-50 text-red-400 px-3 py-1.5 rounded-lg font-bold hover:bg-red-100 transition">刪除</button>
-                                </div>
+                                <button @click="deleteRecord(idx)" class="text-xs bg-red-50 text-red-400 px-3 py-1.5 rounded-lg font-bold hover:bg-red-100 transition">刪除紀錄</button>
                             </div>
 
                             <div v-if="rec.trackingNumber" class="mb-4 p-3 bg-blue-50 rounded-xl border border-blue-100 border-dashed">
@@ -143,6 +137,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div v-if="records.length === 0" class="text-center py-20 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">
+                            <p class="text-slate-400 font-bold text-sm">目前無任何申請紀錄</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -159,8 +156,6 @@
                     '專輯直接丟棄': '(備註告知張數)' 
                 };
                 const records = ref([]);
-                const isUpdating = ref(false);
-                const updatingIndex = ref(null);
                 const initialForm = () => ({
                     lineName: '', memberId: '', items: [{ name: '', platform: '', date: '' }],
                     selectedServices: [], otherService: '', trackingNumber: '', shipDate: ''
@@ -168,41 +163,24 @@
                 const form = ref(initialForm());
 
                 onMounted(() => {
-                    const saved = localStorage.getItem('parcel-system-final-v2.2');
+                    const saved = localStorage.getItem('parcel-final-v3');
                     if (saved) records.value = JSON.parse(saved);
                 });
 
                 watch(records, (newVal) => {
-                    localStorage.setItem('parcel-system-final-v2.2', JSON.stringify(newVal));
+                    localStorage.setItem('parcel-final-v3', JSON.stringify(newVal));
                 }, { deep: true });
 
                 const addItem = () => form.value.items.push({ name: '', platform: '', date: '' });
                 const removeItem = (index) => form.value.items.splice(index, 1);
 
-                const startUpdate = (index) => {
-                    isUpdating.value = true;
-                    updatingIndex.value = index;
-                    form.value = JSON.parse(JSON.stringify(records.value[index]));
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                };
-
-                const cancelUpdate = () => {
-                    isUpdating.value = false;
-                    updatingIndex.value = null;
-                    form.value = initialForm();
-                };
-
                 const submitForm = async () => {
                     if (!form.value.lineName) return alert('請填寫 LINE 名字');
                     const payload = JSON.parse(JSON.stringify(form.value));
-                    if (isUpdating.value) {
-                        records.value[updatingIndex.value] = payload;
-                        isUpdating.value = false;
-                        updatingIndex.value = null;
-                    } else {
-                        records.value.unshift(payload);
-                    }
                     
+                    records.value.unshift(payload);
+                    
+                    // --- Google Sheets Sync (記得填入網址) ---
                     try {
                         const googleUrl = 'https://script.google.com/macros/s/AKfycbzNgSVKqz0br5ZLbjotQsp6sCShkQep-FPfDlauZjFrVAwkjWlKEq4xWXEKxGuWd1Fa/exec';
                         await fetch(googleUrl, {
@@ -211,19 +189,18 @@
                             body: JSON.stringify({
                                 ...payload,
                                 itemsSummary: payload.items.map(i => `${i.name}(${i.platform})`).join('; '),
-                                services: payload.selectedServices.join(', '),
-                                action: isUpdating.value ? 'UPDATE' : 'NEW'
+                                services: payload.selectedServices.join(', ')
                             })
                         });
                     } catch (e) { console.log('Sync error'); }
 
                     form.value = initialForm();
-                    alert('儲存成功！');
+                    alert('申請已提交成功！');
                 };
 
-                const deleteRecord = (index) => { if(confirm('確定刪除？')) records.value.splice(index, 1); };
+                const deleteRecord = (index) => { if(confirm('確定刪除紀錄？')) records.value.splice(index, 1); };
 
-                return { form, records, serviceOptions, isUpdating, addItem, removeItem, submitForm, deleteRecord, startUpdate, cancelUpdate };
+                return { form, records, serviceOptions, addItem, removeItem, submitForm, deleteRecord };
             }
         }).mount('#app');
     </script>

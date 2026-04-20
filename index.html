@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>代收貨物管理系統 V5.4</title>
+    <title>代收貨物管理系統 V5.5</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -14,7 +14,7 @@
                 <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 sticky top-8">
                     <div class="bg-slate-900 p-6 flex justify-between items-center">
                         <div>
-                            <h1 class="text-white text-xl font-black">📦 {{ isEditing ? '修改代收資訊' : '代收運回申請表單' }}</h1>
+                            <h1 class="text-white text-xl font-black">📦 {{ isEditing ? '修改代收資訊' : '代收貨物申請表單' }}</h1>
                             <p class="text-slate-400 text-[10px] uppercase tracking-widest mt-1">Parcel Management System</p>
                         </div>
                         <button v-if="isEditing" @click="cancelEdit" class="text-xs bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition">取消修改</button>
@@ -100,7 +100,7 @@
                                     <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">包裹內容</div>
                                     <ul class="space-y-1 text-slate-600">
                                         <li v-for="item in rec.items" class="border-b border-white pb-1 italic">
-                                            {{ item.name }} | {{ item.platform }} ({{ item.date || '無日期' }})
+                                            {{ item.name }} | [{{ item.platform }}] ({{ item.date || '無日期' }})
                                         </li>
                                     </ul>
                                 </div>
@@ -134,11 +134,11 @@
                 const form = ref(initialForm());
 
                 onMounted(() => {
-                    const saved = localStorage.getItem('parcel-final-v5.4');
+                    const saved = localStorage.getItem('parcel-final-v5.5');
                     if (saved) records.value = JSON.parse(saved);
                 });
 
-                watch(records, (newVal) => { localStorage.setItem('parcel-final-v5.4', JSON.stringify(newVal)); }, { deep: true });
+                watch(records, (newVal) => { localStorage.setItem('parcel-final-v5.5', JSON.stringify(newVal)); }, { deep: true });
 
                 const addItem = () => form.value.items.push({ name: '', platform: '', date: '' });
                 const removeItem = (index) => form.value.items.splice(index, 1);
@@ -162,8 +162,8 @@
                             mode: 'no-cors',
                             body: JSON.stringify({
                                 ...payload,
-                                // 這裡將內容拆成兩個變數傳送
-                                itemsSummary: payload.items.map(i => `${i.name}(${i.platform})`).join('\n'),
+                                // 修改格式為：品項 [平台]
+                                itemsSummary: payload.items.map(i => `${i.name} [${i.platform}]`).join('\n'),
                                 datesSummary: payload.items.map(i => i.date || '未填').join('\n'),
                                 services: payload.selectedServices.join(', '),
                                 status: isEditing.value ? '【修改件】' : '【新申請】'

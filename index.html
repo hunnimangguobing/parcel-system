@@ -14,7 +14,7 @@
             <div class="lg:col-span-5">
                 <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 sticky top-8">
                     <div class="bg-slate-900 p-6 text-center">
-                        <h1 class="text-white text-xl font-black">📦 韓國代收貨物申請表單</h1>
+                        <h1 class="text-white text-xl font-black">📦韓國代收貨物申請表單</h1>
                         <p class="text-slate-400 text-[10px] uppercase tracking-widest mt-1">Parcel Management System</p>
                     </div>
                     
@@ -22,25 +22,11 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-bold text-slate-500 mb-1">LINE 名字</label>
-                                <input v-model="form.lineName" type="text" placeholder="您的名稱" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
+                                <input v-model="form.lineName" type="text" placeholder="您的LINE顯示名稱" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-500 mb-1">代收代號</label>
                                 <input v-model="form.memberId" type="text" placeholder="例如:VIP01" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
-                            </div>
-                        </div>
-
-                        <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 space-y-3">
-                            <label class="block text-xs font-bold text-blue-500 uppercase">🚚 配送單號 (店家已發貨再填寫，無則跳過)</label>
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <span class="text-[10px] text-blue-400 mb-1 ml-1 font-bold uppercase">物流單號</span>
-                                    <input v-model="form.trackingNumber" type="text" placeholder="純數字單號" class="w-full bg-white border-blue-200 rounded-lg p-2 text-sm border focus:ring-1 focus:ring-blue-400 outline-none">
-                                </div>
-                                <div>
-                                    <span class="text-[10px] text-blue-400 mb-1 ml-1 font-bold uppercase">實際寄出日</span>
-                                    <input v-model="form.shipDate" type="date" class="w-full bg-white border-blue-200 rounded-lg p-2 text-sm border focus:ring-1 focus:ring-blue-400 outline-none">
-                                </div>
                             </div>
                         </div>
 
@@ -56,12 +42,12 @@
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase">品項名稱</label>
-                                        <input v-model="item.name" type="text" placeholder="BTS手燈" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
+                                        <input v-model="item.name" type="text" placeholder="例如:BTS手燈" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
                                     </div>
                                     <div class="grid grid-cols-2 gap-3">
                                         <div>
                                             <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase">店家 / 平台</label>
-                                            <input v-model="item.platform" type="text" placeholder="weverse" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
+                                            <input v-model="item.platform" type="text" placeholder="例如:weverse" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
                                         </div>
                                         <div>
                                             <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase">預計出貨日(若無則跳過)</label>
@@ -112,13 +98,6 @@
                                 <button @click="deleteRecord(idx)" class="text-xs bg-red-50 text-red-400 px-3 py-1.5 rounded-lg font-bold hover:bg-red-100 transition">刪除紀錄</button>
                             </div>
 
-                            <div v-if="rec.trackingNumber" class="mb-4 p-3 bg-blue-50 rounded-xl border border-blue-100 border-dashed">
-                                <div class="flex justify-between text-[11px] font-bold text-blue-500">
-                                    <span>🚚 物流單號: {{ rec.trackingNumber }}</span>
-                                    <span>📅 寄出日: {{ rec.shipDate }}</span>
-                                </div>
-                            </div>
-
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                                 <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
                                     <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">包裹內容</div>
@@ -158,17 +137,17 @@
                 const records = ref([]);
                 const initialForm = () => ({
                     lineName: '', memberId: '', items: [{ name: '', platform: '', date: '' }],
-                    selectedServices: [], otherService: '', trackingNumber: '', shipDate: ''
+                    selectedServices: [], otherService: ''
                 });
                 const form = ref(initialForm());
 
                 onMounted(() => {
-                    const saved = localStorage.getItem('parcel-final-v3');
+                    const saved = localStorage.getItem('parcel-final-v4');
                     if (saved) records.value = JSON.parse(saved);
                 });
 
                 watch(records, (newVal) => {
-                    localStorage.setItem('parcel-final-v3', JSON.stringify(newVal));
+                    localStorage.setItem('parcel-final-v4', JSON.stringify(newVal));
                 }, { deep: true });
 
                 const addItem = () => form.value.items.push({ name: '', platform: '', date: '' });
@@ -180,7 +159,6 @@
                     
                     records.value.unshift(payload);
                     
-                    // --- Google Sheets Sync (記得填入網址) ---
                     try {
                         const googleUrl = 'https://script.google.com/macros/s/AKfycbzNgSVKqz0br5ZLbjotQsp6sCShkQep-FPfDlauZjFrVAwkjWlKEq4xWXEKxGuWd1Fa/exec';
                         await fetch(googleUrl, {

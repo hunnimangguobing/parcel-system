@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>昏尼ㄉ芒果冰🇰🇷代收運回申請表單 V5.3</title>
+    <title>代收貨物管理系統 V5.4</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body class="bg-slate-50 min-h-screen py-8 text-slate-800">
     <div id="app" class="max-w-6xl mx-auto px-4">
-        
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div class="lg:col-span-5">
                 <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 sticky top-8">
@@ -25,35 +24,33 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-bold text-slate-500 mb-1 ml-1">LINE 名字</label>
-                                <input v-model="form.lineName" type="text" placeholder="您的LINE顯示名稱" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
+                                <input v-model="form.lineName" type="text" placeholder="您的名稱" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-500 mb-1 ml-1">代收代號</label>
-                                <input v-model="form.memberId" type="text" placeholder="例如: VIP01" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
+                                <input v-model="form.memberId" type="text" placeholder="例如:VIP01" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
                             </div>
                         </div>
 
                         <div>
                             <div class="flex justify-between items-center mb-3">
-                                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">代收品項明細(同訂單商品打一起即可)</label>
+                                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">代收品項明細</label>
                                 <button @click="addItem" class="text-xs text-blue-600 font-bold hover:text-blue-800 transition">+ 新增品項</button>
                             </div>
-
                             <div v-for="(item, index) in form.items" :key="index" class="bg-white p-4 rounded-2xl mb-4 border border-slate-100 shadow-sm relative">
                                 <button v-if="form.items.length > 1" @click="removeItem(index)" class="absolute top-3 right-3 text-slate-300 hover:text-red-400 transition text-sm">✕</button>
-                                
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">品項名稱</label>
-                                        <input v-model="item.name" type="text" placeholder="例如: BTS手燈、BTS專輯" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
+                                        <input v-model="item.name" type="text" placeholder="BTS手燈" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
                                     </div>
                                     <div class="grid grid-cols-2 gap-3">
                                         <div>
                                             <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">店家 / 平台</label>
-                                            <input v-model="item.platform" type="text" placeholder="例如: weverse" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
+                                            <input v-model="item.platform" type="text" placeholder="weverse" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
                                         </div>
                                         <div>
-                                            <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">預計出貨日(若無則跳過)</label>
+                                            <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">預計出貨日</label>
                                             <input v-model="item.date" type="date" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition text-slate-600">
                                         </div>
                                     </div>
@@ -70,9 +67,8 @@
                                     <span class="ml-auto text-xs font-black text-blue-600 tracking-tighter">{{ price }}</span>
                                 </label>
                             </div>
-                            
                             <div class="mt-5">
-                                <label class="block text-xs font-bold text-slate-500 mb-2 ml-1">其他特殊需求或備註 (例如: 拆專/丟棄張數)</label>
+                                <label class="block text-xs font-bold text-slate-500 mb-2 ml-1">其他特殊需求或備註</label>
                                 <textarea v-model="form.otherService" rows="3" placeholder="請在此輸入詳細說明..." class="w-full border-slate-200 rounded-2xl bg-slate-50 p-4 text-sm outline-none border focus:border-slate-400 focus:bg-white transition"></textarea>
                             </div>
                         </div>
@@ -90,7 +86,6 @@
                         <span class="bg-slate-900 text-white w-2 h-6 rounded-full mr-3"></span>
                         已接收申請總結
                     </h2>
-                    
                     <div class="space-y-4">
                         <div v-for="(rec, idx) in records" :key="idx" class="border border-slate-200 bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition">
                             <div class="flex justify-between items-start mb-4">
@@ -100,10 +95,9 @@
                                 </div>
                                 <button @click="startEdit(idx)" class="text-xs bg-blue-50 text-blue-600 px-6 py-2 rounded-lg font-bold hover:bg-blue-100 transition shadow-sm">修改內容</button>
                             </div>
-
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                                 <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                    <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest whitespace-pre-line">包裹內容</div>
+                                    <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">包裹內容</div>
                                     <ul class="space-y-1 text-slate-600">
                                         <li v-for="item in rec.items" class="border-b border-white pb-1 italic">
                                             {{ item.name }} | {{ item.platform }} ({{ item.date || '無日期' }})
@@ -132,55 +126,34 @@
         const { createApp, ref, onMounted, watch } = Vue;
         createApp({
             setup() {
-                const serviceOptions = { 
-                    '拆箱清點數量': '+NT$50/箱', 
-                    '拆專運回內容物': '(備註告知張數)', 
-                    '專輯直接丟棄': '(備註告知張數)' 
-                };
+                const serviceOptions = { '拆箱清點數量': '+NT$50/箱', '拆專運回內容物': '(備註告知張數)', '專輯直接丟棄': '(備註告知張數)' };
                 const records = ref([]);
                 const isEditing = ref(false);
                 const editIndex = ref(null);
-                
-                const initialForm = () => ({
-                    lineName: '', memberId: '', items: [{ name: '', platform: '', date: '' }],
-                    selectedServices: [], otherService: ''
-                });
+                const initialForm = () => ({ lineName: '', memberId: '', items: [{ name: '', platform: '', date: '' }], selectedServices: [], otherService: '' });
                 const form = ref(initialForm());
 
                 onMounted(() => {
-                    const saved = localStorage.getItem('parcel-final-v5.3');
+                    const saved = localStorage.getItem('parcel-final-v5.4');
                     if (saved) records.value = JSON.parse(saved);
                 });
 
-                watch(records, (newVal) => {
-                    localStorage.setItem('parcel-final-v5.3', JSON.stringify(newVal));
-                }, { deep: true });
+                watch(records, (newVal) => { localStorage.setItem('parcel-final-v5.4', JSON.stringify(newVal)); }, { deep: true });
 
                 const addItem = () => form.value.items.push({ name: '', platform: '', date: '' });
                 const removeItem = (index) => form.value.items.splice(index, 1);
-
                 const startEdit = (index) => {
                     isEditing.value = true;
                     editIndex.value = index;
                     form.value = JSON.parse(JSON.stringify(records.value[index]));
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 };
-
-                const cancelEdit = () => {
-                    isEditing.value = false;
-                    editIndex.value = null;
-                    form.value = initialForm();
-                };
+                const cancelEdit = () => { isEditing.value = false; editIndex.value = null; form.value = initialForm(); };
 
                 const submitForm = async () => {
                     if (!form.value.lineName) return alert('請填寫 LINE 名字');
                     const payload = JSON.parse(JSON.stringify(form.value));
-                    
-                    if (isEditing.value) {
-                        records.value[editIndex.value] = payload;
-                    } else {
-                        records.value.unshift(payload);
-                    }
+                    if (isEditing.value) { records.value[editIndex.value] = payload; } else { records.value.unshift(payload); }
                     
                     try {
                         const googleUrl = 'https://script.google.com/macros/s/AKfycbzNgSVKqz0br5ZLbjotQsp6sCShkQep-FPfDlauZjFrVAwkjWlKEq4xWXEKxGuWd1Fa/exec';
@@ -189,17 +162,17 @@
                             mode: 'no-cors',
                             body: JSON.stringify({
                                 ...payload,
-                                itemsSummary: payload.items.map(i => `${i.name}(${i.platform}) [${i.date || '未填'}]`).join('\n'),
+                                // 這裡將內容拆成兩個變數傳送
+                                itemsSummary: payload.items.map(i => `${i.name}(${i.platform})`).join('\n'),
+                                datesSummary: payload.items.map(i => i.date || '未填').join('\n'),
                                 services: payload.selectedServices.join(', '),
                                 status: isEditing.value ? '【修改件】' : '【新申請】'
                             })
                         });
                     } catch (e) { console.log('Sync error'); }
-
                     alert(isEditing.value ? '修改已同步至試算表！' : '申請已提交成功！');
                     cancelEdit();
                 };
-
                 return { form, records, serviceOptions, isEditing, addItem, removeItem, submitForm, startEdit, cancelEdit };
             }
         }).mount('#app');

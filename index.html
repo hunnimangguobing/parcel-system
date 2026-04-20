@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>代收貨物管理系統 V5</title>
+    <title>代收貨物管理系統 V5.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -18,17 +18,17 @@
                             <h1 class="text-white text-xl font-black">📦 {{ isEditing ? '修改代收資訊' : '代收貨物申請表單' }}</h1>
                             <p class="text-slate-400 text-[10px] uppercase tracking-widest mt-1">Parcel Management System</p>
                         </div>
-                        <button v-if="isEditing" @click="cancelEdit" class="text-xs bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600">取消修改</button>
+                        <button v-if="isEditing" @click="cancelEdit" class="text-xs bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition">取消修改</button>
                     </div>
                     
                     <div class="p-6 space-y-6">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-500 mb-1">LINE 名字</label>
+                                <label class="block text-xs font-bold text-slate-500 mb-1 ml-1">LINE 名字</label>
                                 <input v-model="form.lineName" type="text" placeholder="您的名稱" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-500 mb-1">代收代號</label>
+                                <label class="block text-xs font-bold text-slate-500 mb-1 ml-1">代收代號</label>
                                 <input v-model="form.memberId" type="text" placeholder="例如:VIP01" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
                             </div>
                         </div>
@@ -44,16 +44,16 @@
                                 
                                 <div class="space-y-4">
                                     <div>
-                                        <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase">品項名稱</label>
+                                        <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">品項名稱</label>
                                         <input v-model="item.name" type="text" placeholder="BTS手燈" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
                                     </div>
                                     <div class="grid grid-cols-2 gap-3">
                                         <div>
-                                            <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase">店家 / 平台</label>
+                                            <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">店家 / 平台</label>
                                             <input v-model="item.platform" type="text" placeholder="weverse" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
                                         </div>
                                         <div>
-                                            <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase">預計出貨日(若無則跳過)</label>
+                                            <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">預計出貨日(若無則跳過)</label>
                                             <input v-model="item.date" type="date" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition text-slate-600">
                                         </div>
                                     </div>
@@ -64,7 +64,7 @@
                         <div>
                             <label class="block text-xs font-bold text-slate-500 uppercase mb-3 tracking-wider">額外服務項目</label>
                             <div class="space-y-2">
-                                <label v-for="(price, service) in serviceOptions" :key="service" class="flex items-center p-3.5 rounded-xl border border-slate-100 bg-slate-50 hover:bg-slate-100/50 cursor-pointer transition">
+                                <label v-for="(price, service) in serviceOptions" :key="service" class="flex items-center p-3.5 rounded-xl border border-slate-100 bg-slate-50 hover:bg-slate-100/50 cursor-pointer transition shadow-sm">
                                     <input type="checkbox" :value="service" v-model="form.selectedServices" class="w-4 h-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900">
                                     <span class="ml-3 text-sm font-bold text-slate-700">{{ service }}</span>
                                     <span class="ml-auto text-xs font-black text-blue-600 tracking-tighter">{{ price }}</span>
@@ -99,8 +99,8 @@
                                     <div class="text-xs font-bold text-blue-600 uppercase tracking-tighter">代號: {{ rec.memberId }}</div>
                                 </div>
                                 <div class="flex gap-2">
-                                    <button @click="startEdit(idx)" class="text-xs bg-blue-50 text-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-100 transition">修改</button>
-                                    <button @click="deleteRecord(idx)" class="text-xs bg-red-50 text-red-400 px-4 py-2 rounded-lg font-bold hover:bg-red-100 transition">刪除</button>
+                                    <button @click="startEdit(idx)" class="text-xs bg-blue-50 text-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-100 transition shadow-sm">修改</button>
+                                    <button @click="deleteRecord(idx)" class="text-xs bg-red-50 text-red-400 px-4 py-2 rounded-lg font-bold hover:bg-red-100 transition shadow-sm">刪除</button>
                                 </div>
                             </div>
 
@@ -135,7 +135,11 @@
         const { createApp, ref, onMounted, watch } = Vue;
         createApp({
             setup() {
-                const serviceOptions = { '拆箱清點數量': '+NT$50/箱', '拆專運回內容物': '(備註告知張數)', '專輯直接丟棄': '(備註告知張數)' };
+                const serviceOptions = { 
+                    '拆箱清點數量': '+NT$50/箱', 
+                    '拆專運回內容物': '(備註告知張數)', 
+                    '專輯直接丟棄': '(備註告知張數)' 
+                };
                 const records = ref([]);
                 const isEditing = ref(false);
                 const editIndex = ref(null);
@@ -147,18 +151,17 @@
                 const form = ref(initialForm());
 
                 onMounted(() => {
-                    const saved = localStorage.getItem('parcel-final-v5');
+                    const saved = localStorage.getItem('parcel-final-v5.1');
                     if (saved) records.value = JSON.parse(saved);
                 });
 
                 watch(records, (newVal) => {
-                    localStorage.setItem('parcel-final-v5', JSON.stringify(newVal));
+                    localStorage.setItem('parcel-final-v5.1', JSON.stringify(newVal));
                 }, { deep: true });
 
                 const addItem = () => form.value.items.push({ name: '', platform: '', date: '' });
                 const removeItem = (index) => form.value.items.splice(index, 1);
 
-                // 修改邏輯：點擊修改將資料抓回表單
                 const startEdit = (index) => {
                     isEditing.value = true;
                     editIndex.value = index;
@@ -177,9 +180,9 @@
                     const payload = JSON.parse(JSON.stringify(form.value));
                     
                     if (isEditing.value) {
-                        records.value[editIndex.value] = payload; // 更新本地顯示
+                        records.value[editIndex.value] = payload;
                     } else {
-                        records.value.unshift(payload); // 新增本地顯示
+                        records.value.unshift(payload);
                     }
                     
                     try {
@@ -189,9 +192,9 @@
                             mode: 'no-cors',
                             body: JSON.stringify({
                                 ...payload,
-                                itemsSummary: payload.items.map(i => `${i.name}(${i.platform})`).join('; '),
+                                itemsSummary: payload.items.map(i => `${i.name}(${i.platform}) [${i.date || '未填'}]`).join('; '),
                                 services: payload.selectedServices.join(', '),
-                                status: isEditing.value ? '【修改件】' : '【新申請】' // 讓試算表能區分
+                                status: isEditing.value ? '【修改件】' : '【新申請】'
                             })
                         });
                     } catch (e) { console.log('Sync error'); }

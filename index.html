@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代收貨物管理系統</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body class="bg-slate-50 min-h-screen py-8 text-slate-800">
+    <div id="app" class="max-w-6xl mx-auto px-4">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-5">
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200">
+                    <div class="bg-slate-900 p-6">
+                        <h1 class="text-white text-xl font-black">📦 代收貨物申請表單</h1>
+                    </div>
+                    
+                    <div class="p-6 space-y-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-1">LINE 名字</label>
+                                <input v-model="form.lineName" type="text" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 uppercase mb-1">代收代號</label>
+                                <input v-model="form.memberId" type="text" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs font-bold text-slate-400 uppercase">代收品項清單</label>
+                                <button @click="addItem" class="text-xs text-blue-600 font-bold">+ 新增品項</button>
+                            </div>
+                            
+                            <div v-for="(item, index) in form.items" :key="index" class="bg-slate-50 p-4 rounded-2xl mb-3 border border-slate-100 relative">
+                                <button v-if="form.items.length > 1" @click="removeItem(index)" class="absolute top-2 right-2 text-red-300 text-xs">✕ 刪除</button>
+                                <div class="space-y-2">
+                                    <input v-model="item.name" type="text" placeholder="品項名稱" class="w-full bg-white border-slate-200 rounded-lg p-2 text-sm border">
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <input v-model="item.platform" type="text" placeholder="店家 / 平台名稱" class="bg-white border-slate-200 rounded-lg p-2 text-sm border">
+                                        <input v-model="item.date" type="date" class="bg-white border-slate-200 rounded-lg p-2 text-sm border">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-3">額外服務項目</label>
+                            <div class="space-y-2">
+                                <label v-for="(price, service) in serviceOptions" :key="service" class="flex items-center p-4 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+                                    <input type="checkbox" :value="service" v-model="form.selectedServices" class="w-5 h-5 rounded border-slate-300 text-slate-900 focus:ring-slate-900">
+                                    <span class="ml-3 text-sm font-bold text-slate-700">{{ service }}</span>
+                                    <span class="ml-auto text-sm font-black text-blue-600">{{ price }}</span>
+                                </label>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <label class="block text-xs font-bold text-slate-400 mb-2">其他特殊需求 (例如拆專/丟棄張數)</label>
+                                <textarea v-model="form.otherService" rows="2" placeholder="請在此輸入詳細說明..." class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400"></textarea>
+                            </div>
+                        </div>
+
+                        <button @click="submitForm" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black text-lg hover:shadow-lg transition active:scale-[0.98]">
+                            確認送出申請
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7">
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                    <h2 class="text-lg font-black mb-6 flex items-center">
+                        <span class="bg-slate-900 text-white w-2 h-6 rounded-full mr-3"></span>
+                        已接收申請總結
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div v-for="(rec, idx) in records" :key="idx" class="border border-slate-100 bg-slate-50 rounded-2xl p-5">
+                            <div class="flex justify-between mb-4">
+                                <div>
+                                    <span class="text-xs font-bold text-slate-400 uppercase">客戶資料</span>
+                                    <div class="font-black text-slate-800 text-lg">{{ rec.lineName }} ({{ rec.memberId }})</div>
+                                </div>
+                                <button @click="deleteRecord(idx)" class="text-slate-300 hover:text-red-500 text-sm">刪除</button>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded-xl">
+                                    <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase">包裹內容</div>
+                                    <ul class="text-xs space-y-1">
+                                        <li v-for="item in rec.items">🔹 {{ item.name }} | {{ item.platform }} | {{ item.date }}</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-3 rounded-xl">
+                                    <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase">服務需求</div>
+                                    <div class="flex flex-wrap gap-1 mb-2">
+                                        <span v-for="s in rec.selectedServices" class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-[10px] font-bold">{{ s }}</span>
+                                    </div>
+                                    <p v-if="rec.otherService" class="text-[11px] text-slate-500 italic border-t pt-1 mt-1">備註: {{ rec.otherService }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, onMounted, watch } = Vue;
+        createApp({
+            setup() {
+                // 完全依照你的要求設定選項與金額標籤
+                const serviceOptions = {
+                    '拆箱清點數量': '+NT$50/箱',
+                    '拆專運回內容物': '(備註告知張數)',
+                    '專輯直接丟棄': '(備註告知張數)'
+                };
+
+                const records = ref([]);
+                const form = ref({
+                    lineName: '',
+                    memberId: '',
+                    items: [{ name: '', platform: '', date: '' }],
+                    selectedServices: [],
+                    otherService: ''
+                });
+
+                onMounted(() => {
+                    const saved = localStorage.getItem('my-parcel-final');
+                    if (saved) records.value = JSON.parse(saved);
+                });
+
+                watch(records, (newVal) => {
+                    localStorage.setItem('my-parcel-final', JSON.stringify(newVal));
+                }, { deep: true });
+
+                const addItem = () => form.value.items.push({ name: '', platform: '', date: '' });
+                const removeItem = (index) => form.value.items.splice(index, 1);
+
+                const submitForm = () => {
+                    if (!form.value.lineName) return alert('請填寫 LINE 名字');
+                    records.value.unshift({ ...JSON.parse(JSON.stringify(form.value)) });
+                    form.value = { lineName: '', memberId: '', items: [{ name: '', platform: '', date: '' }], selectedServices: [], otherService: '' };
+                    alert('提交成功！');
+                };
+
+                const deleteRecord = (index) => { if(confirm('確定刪除？')) records.value.splice(index, 1); };
+
+                return { form, records, serviceOptions, addItem, removeItem, submitForm, deleteRecord };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

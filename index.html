@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>代收貨物管理系統 V5.1</title>
+    <title>代收貨物管理系統 V5.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -151,12 +151,12 @@
                 const form = ref(initialForm());
 
                 onMounted(() => {
-                    const saved = localStorage.getItem('parcel-final-v5.1');
+                    const saved = localStorage.getItem('parcel-final-v5.2');
                     if (saved) records.value = JSON.parse(saved);
                 });
 
                 watch(records, (newVal) => {
-                    localStorage.setItem('parcel-final-v5.1', JSON.stringify(newVal));
+                    localStorage.setItem('parcel-final-v5.2', JSON.stringify(newVal));
                 }, { deep: true });
 
                 const addItem = () => form.value.items.push({ name: '', platform: '', date: '' });
@@ -192,7 +192,8 @@
                             mode: 'no-cors',
                             body: JSON.stringify({
                                 ...payload,
-                                itemsSummary: payload.items.map(i => `${i.name}(${i.platform}) [${i.date || '未填'}]`).join('; '),
+                                // 重點：join('\n') 實現分行顯示
+                                itemsSummary: payload.items.map(i => `${i.name}(${i.platform}) [${i.date || '未填'}]`).join('\n'),
                                 services: payload.selectedServices.join(', '),
                                 status: isEditing.value ? '【修改件】' : '【新申請】'
                             })

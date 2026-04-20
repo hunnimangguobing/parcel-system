@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>代收貨物管理系統 V2.1</title>
+    <title>代收貨物管理系統 V2.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -15,7 +15,7 @@
                 <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 sticky top-8">
                     <div class="bg-slate-900 p-6 flex justify-between items-center">
                         <div>
-                            <h1 class="text-white text-xl font-black">📦 {{ isUpdating ? '更新配送資訊' : '代收貨物申請' }}</h1>
+                            <h1 class="text-white text-xl font-black">📦 {{ isUpdating ? '更新配送資訊' : '韓國代收貨物申請' }}</h1>
                             <p class="text-slate-400 text-[10px] uppercase tracking-widest mt-1">Parcel Management System</p>
                         </div>
                         <button v-if="isUpdating" @click="cancelUpdate" class="text-xs bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition">取消更新</button>
@@ -49,7 +49,7 @@
 
                         <div>
                             <div class="flex justify-between items-center mb-3">
-                                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">代收品項清單</label>
+                                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">代收品項明細</label>
                                 <button @click="addItem" class="text-xs text-blue-600 font-bold hover:text-blue-800 transition">+ 新增品項</button>
                             </div>
 
@@ -58,17 +58,16 @@
                                 
                                 <div class="space-y-4">
                                     <div>
-                                        <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1">品項名稱</label>
+                                        <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase">品項名稱</label>
                                         <input v-model="item.name" type="text" placeholder="BTS手燈" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
                                     </div>
-                                    
                                     <div class="grid grid-cols-2 gap-3">
                                         <div>
-                                            <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1">店家 / 平台</label>
+                                            <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase">店家 / 平台</label>
                                             <input v-model="item.platform" type="text" placeholder="weverse" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
                                         </div>
                                         <div>
-                                            <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1">預計出貨日(若無則跳過)</label>
+                                            <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase">預計出貨日(若無則跳過)</label>
                                             <input v-model="item.date" type="date" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition text-slate-600">
                                         </div>
                                     </div>
@@ -82,8 +81,13 @@
                                 <label v-for="(price, service) in serviceOptions" :key="service" class="flex items-center p-3.5 rounded-xl border border-slate-100 bg-slate-50 hover:bg-slate-100/50 cursor-pointer transition">
                                     <input type="checkbox" :value="service" v-model="form.selectedServices" class="w-4 h-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900">
                                     <span class="ml-3 text-sm font-bold text-slate-700">{{ service }}</span>
-                                    <span class="ml-auto text-xs font-black text-blue-600">{{ price }}</span>
+                                    <span class="ml-auto text-xs font-black text-blue-600 tracking-tighter">{{ price }}</span>
                                 </label>
+                            </div>
+                            
+                            <div class="mt-5">
+                                <label class="block text-xs font-bold text-slate-500 mb-2 ml-1">其他特殊需求或備註 (例如拆專/丟棄張數)</label>
+                                <textarea v-model="form.otherService" rows="3" placeholder="請在此輸入詳細說明..." class="w-full border-slate-200 rounded-2xl bg-slate-50 p-4 text-sm outline-none border focus:border-slate-400 focus:bg-white transition"></textarea>
                             </div>
                         </div>
 
@@ -95,7 +99,7 @@
             </div>
 
             <div class="lg:col-span-7">
-                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm min-h-[400px]">
                     <h2 class="text-lg font-black mb-6 flex items-center">
                         <span class="bg-slate-900 text-white w-2 h-6 rounded-full mr-3"></span>
                         已接收申請總結
@@ -123,25 +127,21 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                                 <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                    <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase">包裹內容</div>
+                                    <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">包裹內容</div>
                                     <ul class="space-y-1 text-slate-600">
                                         <li v-for="item in rec.items" class="border-b border-white pb-1 italic">
-                                            {{ item.name }} | {{ item.platform }} ({{ item.date || '未填日期' }})
+                                            {{ item.name }} | {{ item.platform }} ({{ item.date || '無日期' }})
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                    <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase">服務需求</div>
+                                    <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">服務需求</div>
                                     <div class="flex flex-wrap gap-1">
                                         <span v-for="s in rec.selectedServices" class="bg-white border border-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px] font-bold">{{ s }}</span>
                                     </div>
                                     <p v-if="rec.otherService" class="text-[11px] text-slate-500 mt-2 bg-white p-2 rounded italic">📝 {{ rec.otherService }}</p>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div v-if="records.length === 0" class="text-center py-20 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">
-                            <p class="text-slate-400 font-bold text-sm">目前無任何申請紀錄</p>
                         </div>
                     </div>
                 </div>
@@ -153,7 +153,11 @@
         const { createApp, ref, onMounted, watch } = Vue;
         createApp({
             setup() {
-                const serviceOptions = { '拆箱清點數量': '+NT$50/箱', '拆專運回內容物': '(詳見備註)', '專輯直接丟棄': '(詳見備註)' };
+                const serviceOptions = { 
+                    '拆箱清點數量': '+NT$50/箱', 
+                    '拆專運回內容物': '(備註告知張數)', 
+                    '專輯直接丟棄': '(備註告知張數)' 
+                };
                 const records = ref([]);
                 const isUpdating = ref(false);
                 const updatingIndex = ref(null);
@@ -164,12 +168,12 @@
                 const form = ref(initialForm());
 
                 onMounted(() => {
-                    const saved = localStorage.getItem('parcel-vibe-final-v2');
+                    const saved = localStorage.getItem('parcel-system-final-v2.2');
                     if (saved) records.value = JSON.parse(saved);
                 });
 
                 watch(records, (newVal) => {
-                    localStorage.setItem('parcel-vibe-final-v2', JSON.stringify(newVal));
+                    localStorage.setItem('parcel-system-final-v2.2', JSON.stringify(newVal));
                 }, { deep: true });
 
                 const addItem = () => form.value.items.push({ name: '', platform: '', date: '' });
@@ -199,9 +203,8 @@
                         records.value.unshift(payload);
                     }
                     
-                    // --- Google Sheets Sync ---
                     try {
-                        const googleUrl = 'https://docs.google.com/spreadsheets/d/1pFeXgwZgUZQwBDueOXBoBQxYN0PvhlVov3RJxJMZe2U/edit?usp=sharing';
+                        const googleUrl = 'https://docs.google.com/spreadsheets/d/1pFeXgwZgUZQwBDueOXBoBQxYN0PvhlVov3RJxJMZe2U/edit?gid=0#gid=0';
                         await fetch(googleUrl, {
                             method: 'POST',
                             mode: 'no-cors',
@@ -215,7 +218,7 @@
                     } catch (e) { console.log('Sync error'); }
 
                     form.value = initialForm();
-                    alert('資料已成功儲存！');
+                    alert('儲存成功！');
                 };
 
                 const deleteRecord = (index) => { if(confirm('確定刪除？')) records.value.splice(index, 1); };

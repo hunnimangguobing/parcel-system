@@ -122,7 +122,7 @@
                 <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm min-h-[400px]">
                     <h2 class="text-lg font-black mb-6 flex items-center">
                         <span class="bg-slate-900 text-white w-2 h-6 rounded-full mr-3"></span>
-                        已接收申請總結
+                        已接收申請總結 *僅用於送出後短期間再次檢查&修改，不會永久保存
                     </h2>
                     <div class="space-y-4">
                         <div v-for="(rec, idx) in records" :key="idx" class="border border-slate-200 bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition">
@@ -168,8 +168,8 @@
                 // 套用你修改過的服務選項
                 const serviceOptions = { 
                     '拆開清點數量(會拍照錄影)': '*NT$50/箱', 
-                    '拆專運回內容物': '*費用私訊，下方備註張數', 
-                    '專輯直接丟棄': '*NT$5/張，下方備註張數' 
+                    '拆專僅運回內容物': '*費用私訊，下方備註張數', 
+                    '專輯直接整個丟棄': '*NT$5/張，下方備註張數' 
                 };
                 
                 const records = ref([]);

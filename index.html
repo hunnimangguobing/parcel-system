@@ -35,7 +35,7 @@
                         <div>
                             <div class="flex justify-between items-center mb-3">
                                 <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">代收品項明細(同訂單填一筆，不用新增)</label>
-                                <button @click="addItem" class="text-xs text-blue-600 font-bold hover:text-blue-800 transition">+ 新增品項</button>
+                                <button @click="addItem" class="text-xs text-blue-600 font-bold hover:text-blue-800 transition">+ 新增訂單</button>
                             </div>
                             <div v-for="(item, index) in form.items" :key="index" class="bg-white p-4 rounded-2xl mb-4 border border-slate-100 shadow-sm relative">
                                 <button v-if="form.items.length > 1" @click="removeItem(index)" class="absolute top-3 right-3 text-slate-300 hover:text-red-400 transition text-sm">✕</button>

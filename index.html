@@ -126,7 +126,7 @@
         const { createApp, ref, onMounted, watch } = Vue;
         createApp({
             setup() {
-                const serviceOptions = { '拆開清點數量': 'NT$50/箱', '拆專運回內容物': '(費用私訊，下方備註張數)', '專輯直接丟棄': '(NT$5/張，下方備註張數)' };
+                const serviceOptions = { '拆開清點數量(會拍照錄影)': '*NT$50/箱', '拆專運回內容物': '*費用私訊，下方備註張數', '專輯直接丟棄': '*NT$5/張，下方備註張數' };
                 const records = ref([]);
                 const isEditing = ref(false);
                 const editIndex = ref(null);

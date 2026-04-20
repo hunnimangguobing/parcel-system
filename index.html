@@ -34,7 +34,7 @@
 
                         <div>
                             <div class="flex justify-between items-center mb-3">
-                                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">代收品項明細(同訂單填寫在同一筆即可，不用新增)</label>
+                                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">代收品項明細(同訂單填一筆，不用新增)</label>
                                 <button @click="addItem" class="text-xs text-blue-600 font-bold hover:text-blue-800 transition">+ 新增品項</button>
                             </div>
                             <div v-for="(item, index) in form.items" :key="index" class="bg-white p-4 rounded-2xl mb-4 border border-slate-100 shadow-sm relative">
@@ -126,7 +126,7 @@
         const { createApp, ref, onMounted, watch } = Vue;
         createApp({
             setup() {
-                const serviceOptions = { '拆開清點數量': '+NT$50/箱', '拆專運回內容物': '(處理費用先私訊詢問，下方備註張數)', '專輯直接丟棄': '(處理費用先私訊詢問，下方備註張數)' };
+                const serviceOptions = { '拆開清點數量': 'NT$50/箱', '拆專運回內容物': '(費用私訊，下方備註張數)', '專輯直接丟棄': '(NT$5/張，下方備註張數)' };
                 const records = ref([]);
                 const isEditing = ref(false);
                 const editIndex = ref(null);

@@ -7,10 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
-        /* 標題恢復正常顏色 */
         .lang-kr { font-size: 0.9rem; font-weight: 800; color: #475569; }
         .lang-tw { font-size: 0.75rem; color: #64748b; font-weight: bold; }
-        /* 專屬綠色樣式 (Emerald 600) */
         .text-target-green { color: #10b981; }
         .bg-target-green-light { background-color: #ecfdf5; color: #059669; }
     </style>
@@ -25,22 +23,10 @@
                         <span class="text-2xl mr-3">📢</span>
                         <h2 class="text-white text-lg font-black tracking-wider">重要聲明</h2>
                     </div>
-                    <div class="space-y-4">
-                        <div class="flex flex-col items-start gap-2">
-                            <a href="https://sites.google.com/view/hunni-mangguobing/%E9%9F%93%E5%9C%8B%E4%BB%A3%E6%94%B6%E7%99%BC%E8%B2%A8%E5%9B%9E%E5%8F%B0?authuser=0" target="_blank" class="inline-flex items-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg text-sm">代收說明請點此 🔗</a>
-                            <p class="text-slate-400 text-[11px] ml-2">💰 運費2026/04/16已更新 (收費仍以運回時為準)</p>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-300 text-sm font-medium pt-2">
-                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>請記得於申請當天填寫此表單 (若送出後有需要做修改，可透過修改按鍵直接處理，不用重新送單)</p>
-                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>未重新申請請勿再次隨意使用代收資料</p>
-                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>未先詢問過的東西有權拒收，甚至直接拋棄，請據實申報品項以免後續無法通關</p>
-                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>賣家出貨後，請向對方索取單號並告知</p>
-                            <p class="flex items-start md:col-span-2"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>收到表單表示已閱讀代收說明並且同意</p>
-                        </div>
-                        <hr class="border-slate-700 my-4">
-                        <div class="bg-slate-800/50 p-5 rounded-2xl border border-red-900/30">
-                            <p class="text-red-400 text-xs leading-relaxed font-bold">代收資料嚴禁作為其他私人用途 (ex: 購買人資料 / 抽簽售 / 申請虛擬銀行帳號...等)，若收到店家聯絡一律會直接告知對方要取消，並會列入黑名單從此禁止交易往來，嚴重者將進一步處理，擅自用作私人使用，任何後果一律不負責，有無盜用資料都能查得到，切勿以身試法。</p>
-                        </div>
+                    <div class="space-y-4 text-slate-300 text-sm">
+                        <p>⚠️ 請記得於申請當天填寫此表單</p>
+                        <p>⚠️ 未重新申請請勿再次隨意使用代收資料</p>
+                        <p class="text-red-400 text-xs font-bold">代收資料嚴禁作為其他私人用途，違者列入黑名單。</p>
                     </div>
                 </div>
             </div>
@@ -49,107 +35,29 @@
                 <div class="lg:col-span-5">
                     <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 sticky top-8">
                         <div class="bg-slate-900 p-6 flex justify-between items-center">
-                            <div>
-                                <h1 class="text-white text-xl font-black">📦 {{ isEditing ? '修改代收資訊' : '韓國代收運回申請表單' }}</h1>
-                                <p class="text-slate-400 text-[10px] uppercase tracking-widest mt-1">Parcel Management System by@hunni.mangguobing</p>
-                            </div>
-                            <button v-if="isEditing" @click="cancelEdit" class="text-xs bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition">取消修改</button>
+                            <h1 class="text-white text-xl font-black">📦 {{ isEditing ? '修改代收資訊' : '韓國代收運回申請表單' }}</h1>
+                            <button v-if="isEditing" @click="cancelEdit" class="text-xs bg-red-500 text-white px-3 py-1 rounded-full">取消修改</button>
                         </div>
+                        
                         <div class="p-6 space-y-6">
                             <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-500 mb-1 ml-1">LINE 名字</label>
-                                    <input v-model="form.lineName" type="text" placeholder="您的LINE顯示名稱" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-500 mb-1 ml-1">代收代號</label>
-                                    <input v-model="form.memberId" type="text" placeholder="例如: VIP01" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
-                                </div>
+                                <input v-model="form.lineName" type="text" placeholder="LINE 名字" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm border">
+                                <input v-model="form.memberId" type="text" placeholder="代收代號" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm border">
                             </div>
-                            <div>
-                                <div class="flex justify-between items-center mb-3">
-                                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider text-[10px]">代收品項明細 (同訂單填一筆，不用新增訂單)</label>
-                                    <button @click="addItem" class="text-xs text-blue-600 font-bold hover:text-blue-800 transition">+ 新增訂單</button>
-                                </div>
-                                <div v-for="(item, index) in form.items" :key="index" class="bg-white p-4 rounded-2xl mb-4 border border-slate-100 shadow-sm relative">
-                                    <button v-if="form.items.length > 1" @click="removeItem(index)" class="absolute top-3 right-3 text-slate-300 hover:text-red-400 transition text-sm">✕</button>
-                                    <div class="space-y-4">
-                                        <div>
-                                            <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">品項名稱</label>
-                                            <input v-model="item.name" type="text" placeholder="例如: BTS手燈、BTS手燈包" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
-                                        </div>
-                                        <div class="grid grid-cols-2 gap-3">
-                                            <div>
-                                                <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">店家 / 平台</label>
-                                                <input v-model="item.platform" type="text" placeholder="例如: weverse" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
-                                            </div>
-                                            <div>
-                                                <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">預計出貨日 (若無則跳過)</label>
-                                                <input v-model="item.date" type="date" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition text-slate-600">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-500 uppercase mb-3 tracking-wider">額外服務項目</label>
-                                <div class="space-y-2">
-                                    <label v-for="(price, service) in serviceOptions" :key="service" class="flex items-center p-3.5 rounded-xl border border-slate-100 bg-slate-50 hover:bg-slate-100/50 cursor-pointer transition shadow-sm">
-                                        <input type="checkbox" :value="service" v-model="form.selectedServices" class="w-4 h-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900">
-                                        <span class="ml-3 text-sm font-bold text-slate-700">{{ service }}</span>
-                                        <span class="ml-auto text-xs font-black text-blue-600 tracking-tighter">{{ price }}</span>
-                                    </label>
-                                </div>
-                                <div class="mt-5">
-                                    <label class="block text-xs font-bold text-slate-500 mb-2 ml-1 text-[11px]">其他特殊需求或備註</label>
-                                    <textarea v-model="form.otherService" rows="3" placeholder="請在此輸入詳細說明..." class="w-full border-slate-200 rounded-2xl bg-slate-50 p-4 text-sm outline-none border focus:border-slate-400 focus:bg-white transition"></textarea>
-                                </div>
-                            </div>
-                            <button @click="submitForm" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black text-lg hover:bg-black hover:shadow-xl transition duration-300 active:scale-[0.98]">
-                                {{ isEditing ? '確認修改內容' : '確認送出申請' }}
+
+                            <button @click="submitForm" class="w-full bg-slate-900 text-white py-4 rounded-3xl hover:bg-black transition duration-300 shadow-xl flex flex-col items-center justify-center">
+                                <span class="text-xl font-black">{{ isEditing ? '確認修改內容' : '確認送出申請' }}</span>
+                                <span class="text-[11px] font-bold text-slate-400 mt-1">(送出後會跳出韓國收件資料)</span>
                             </button>
-                            <p class="text-center text-slate-400 text-[10px] mt-2 font-bold">(送出後會跳出韓國收件資料)</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="lg:col-span-7">
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm min-h-[400px]">
-                        <div class="mb-6">
-                            <h2 class="text-lg font-black flex items-center mb-1">
-                                <span class="bg-slate-900 text-white w-2 h-6 rounded-full mr-3"></span>
-                                已接收申請總結
-                            </h2>
-                            <p class="text-slate-400 text-xs font-medium ml-5 leading-relaxed">僅用於送出後短期內再檢查&修改，不會長期保存 (但申請內容已回傳後台紀錄)</p>
-                        </div>
-                        <div class="space-y-4">
-                            <div v-for="(rec, idx) in records" :key="idx" class="border border-slate-200 bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition">
-                                <div class="flex justify-between items-start mb-4">
-                                    <div>
-                                        <div class="font-black text-slate-800 text-lg leading-tight">{{ rec.lineName }}</div>
-                                        <div class="text-xs font-bold text-blue-600 uppercase tracking-tighter">代號: {{ rec.memberId }}</div>
-                                    </div>
-                                    <button @click="startEdit(idx)" class="text-xs bg-blue-50 text-blue-600 px-6 py-2 rounded-lg font-bold hover:bg-blue-100 transition shadow-sm">修改內容</button>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                        <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">包裹內容</div>
-                                        <ul class="space-y-1 text-slate-600">
-                                            <li v-for="item in rec.items" class="border-b border-white pb-1 italic">{{ item.name }} | [{{ item.platform }}] ({{ item.date || '無日期' }})</li>
-                                        </ul>
-                                    </div>
-                                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                        <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">服務需求</div>
-                                        <div class="flex flex-wrap gap-1">
-                                            <span v-for="s in rec.selectedServices" class="bg-white border border-slate-200 text-slate-600 px-2 py-0.5 rounded text-[10px] font-bold">{{ s }}</span>
-                                        </div>
-                                        <p v-if="rec.otherService" class="text-[11px] text-slate-500 mt-2 bg-white p-2 rounded italic">📝 {{ rec.otherService }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="records.length === 0" class="text-center py-20 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">
-                                <p class="text-slate-400 font-bold text-sm">目前無任何申請紀錄</p>
-                            </div>
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 min-h-[400px]">
+                        <h2 class="text-lg font-black mb-4">已接收申請總結</h2>
+                        <div v-for="(rec, idx) in records" :key="idx" class="border border-slate-200 rounded-2xl p-4 mb-4">
+                            <div class="font-black">{{ rec.lineName }} (代號: {{ rec.memberId }})</div>
                         </div>
                     </div>
                 </div>
@@ -158,89 +66,51 @@
 
         <div v-if="showAddressCard" class="max-w-2xl mx-auto animate-in fade-in zoom-in duration-300">
             <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
-                <div class="bg-slate-900 p-8 text-center border-b border-white/10">
-                    <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-500/20 rounded-full mb-4">
-                        <span class="text-3xl">✅</span>
-                    </div>
+                <div class="bg-slate-900 p-8 text-center">
                     <h2 class="text-white text-2xl font-black mb-2">申請已成功送出！</h2>
-                    <p class="text-slate-400 text-sm font-bold">請將下方韓國收件資料填寫至購物網站</p>
                 </div>
                 
                 <div class="p-6 md:p-10 space-y-5">
-                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center relative">
-                        <div class="flex justify-center items-center mb-2">
-                            <span class="lang-kr">이름/수령인/받는사람</span>
-                            <span class="lang-tw">(收件人)</span>
-                        </div>
-                        <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all tracking-wider">{{ lastMemberId }}</p>
+                    <div class="bg-slate-50 p-4 rounded-2xl border text-center">
+                        <span class="lang-kr">이름/수령인/받는사람</span> <span class="lang-tw">(收件人)</span>
+                        <p class="text-xl font-black mt-2">{{ lastMemberId }}</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-2xl border text-center">
+                        <span class="lang-kr">휴대전화/전화번호</span> <span class="lang-tw">(電話號碼)</span>
+                        <p class="text-xl font-black mt-2">010-6214-5732</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-2xl border text-center">
+                        <span class="lang-kr">우편번호</span> <span class="lang-tw">(郵遞區號)</span>
+                        <p class="text-xl font-black mt-2">04570</p>
                     </div>
 
-                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
-                        <div class="flex justify-center items-center mb-2">
-                            <span class="lang-kr">휴대전화/전화번호</span>
-                            <span class="lang-tw">(電話號碼)</span>
-                        </div>
-                        <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all tracking-widest">010-6214-5732</p>
-                    </div>
-
-                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
-                        <div class="flex justify-center items-center mb-2">
-                            <span class="lang-kr">우편번호</span>
-                            <span class="lang-tw">(郵遞區號)</span>
-                        </div>
-                        <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all">04570</p>
-                    </div>
-
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center">
-                        <div class="flex justify-center items-center mb-3">
-                            <span class="lang-kr">주소</span>
-                            <span class="lang-tw">(地址)</span>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3 select-all text-center">
+                    <div class="bg-slate-50 p-5 rounded-2xl border text-center">
+                        <span class="lang-kr">주소</span> <span class="lang-tw">(地址)</span>
+                        <div class="bg-white p-4 rounded-xl border mt-3 space-y-3">
                             <div class="pb-2 border-b border-slate-100">
-                                <span class="text-[10px] bg-amber-100 text-amber-600 px-2 py-0.5 rounded font-black mb-1 inline-block">第一行 / 搜尋欄位</span>
-                                <p class="font-bold text-slate-700 text-lg">서울특별시 중구 마장로 62</p>
+                                <span class="text-[10px] bg-amber-100 text-amber-600 px-2 py-0.5 rounded font-black">第一行 / 搜尋欄位</span>
+                                <p class="font-bold text-slate-700 text-lg mt-1">서울특별시 중구 마장로 62</p>
                             </div>
                             <div>
-                                <span class="text-[10px] bg-target-green-light text-emerald-600 px-2 py-0.5 rounded font-black mb-1 inline-block">第二行 / 詳細地址</span>
-                                <p class="font-black text-slate-900 text-xl tracking-tight">5층 510호 JDON<span class="text-target-green">－({{ lastMemberId }})</span></p>
+                                <span class="text-[10px] bg-target-green-light text-emerald-600 px-2 py-0.5 rounded font-black">第二行 / 詳細地址</span>
+                                <p class="font-black text-slate-900 text-xl mt-1">5층 510호 JDON<span class="text-target-green">－({{ lastMemberId }})</span></p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4">
-                        <div class="text-[13px] text-slate-600 leading-relaxed space-y-4 font-medium">
-                            <p>💡 若為直接填寫地址的情況直接以上格式提供給對方即可。</p>
-                            
-                            <div class="mt-2 text-center pb-4 border-b border-slate-200">
-                                <button @click="copyFullFormat" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 shadow-md">
-                                    📋 一鍵複製整套代收地址內容
-                                </button>
-                                <div id="copy-status" class="text-xs text-blue-600 mt-2 font-bold opacity-0 transition-opacity">已完成複製！可以直接貼上。</div>
+                    <div class="bg-slate-50 p-6 rounded-2xl border space-y-4">
+                        <div class="text-[13px] text-slate-600 leading-relaxed space-y-4">
+                            <div class="text-center pb-4 border-b">
+                                <button @click="copyFullFormat" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-md">📋 一鍵複製整套格式</button>
                             </div>
-
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
-                                <p>但韓國購物網站地址填寫大多會用搜尋的方式自動帶入，郵遞區號也會一起自動出現，不需手動輸入，若為此方式：</p>
-                                <p>1️⃣ 在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><span class="bg-amber-50 text-amber-700 font-bold px-1">서울특별시 중구 마장로 62</span></p>
-                                <p class="text-[11px] text-slate-400 pl-4">(若出現흥인동 3-1，是正常的，新舊式地址之分)</p>
-                                <p>2️⃣ 在 <span class="text-target-green font-black">【상세주소(詳細地址)】</span> 欄位輸入：<br><span class="bg-target-green-light font-bold px-1 text-emerald-700">5층 510호 JDON－({{ lastMemberId }})</span></p>
-                            </div>
-
-                            <p class="text-red-500 font-black flex items-start">
-                                <span class="mr-1">‼️</span>
-                                <span>收件人常被隱碼，請務必在地址最後再打一次個人代號以利我這邊找貨‼️</span>
-                            </p>
-
-                            <div class="text-[12px] pt-2 border-t border-slate-200 text-slate-600">
-                                <p>📌 以上已提供基本說明，請填寫正確在 【배송정보(配送資料)】，不是【주문정보(訂購資料)】。</p>
-                                <p class="mt-2">📌 代收恕不提供其他更詳細教學，如若不會下單請以代下單服務進行委託。</p>
+                            <div class="bg-white p-4 rounded-xl border space-y-2">
+                                <p>1️⃣ 在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><b>서울특별시 중구 마장로 62</b></p>
+                                <p>2️⃣ 在 <span class="text-target-green font-black">【상세주소(詳細地址)】</span> 欄位輸入：<br><span class="bg-target-green-light font-bold px-1">우일프라자 5층 510호 JDON－({{ lastMemberId }})</span></p>
                             </div>
                         </div>
                     </div>
 
-                    <button @click="showAddressCard = false" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black text-lg hover:bg-black transition duration-300 shadow-xl">
-                        ⬅️ 回到申請畫面確認資料
-                    </button>
+                    <button @click="showAddressCard = false" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black">⬅️ 回到申請畫面</button>
                 </div>
             </div>
         </div>
@@ -250,77 +120,38 @@
         const { createApp, ref, onMounted, watch } = Vue;
         createApp({
             setup() {
-                const serviceOptions = { 
-                    '拆開清點數量(會拍照錄影)': '*NT$50/箱', 
-                    '拆專僅運回內容物': '*費用私訊，下方備註張數', 
-                    '專輯直接整個丟棄': '*NT$5/張，下方備註張數' 
-                };
+                const serviceOptions = { '拆開清點數量': '*NT$50/箱', '拆專僅運回內容物': '*費用私訊', '專輯直接整個丟棄': '*NT$5/張' };
                 const records = ref([]);
                 const isEditing = ref(false);
                 const editIndex = ref(null);
                 const showAddressCard = ref(false);
                 const lastMemberId = ref('');
-                const initialForm = () => ({ lineName: '', memberId: '', items: [{ name: '', platform: '', date: '' }], selectedServices: [], otherService: '' });
-                const form = ref(initialForm());
+                const form = ref({ lineName: '', memberId: '', items: [{ name: '', platform: '', date: '' }], selectedServices: [], otherService: '' });
 
                 onMounted(() => {
-                    const saved = localStorage.getItem('parcel-final-v6.1');
+                    const saved = localStorage.getItem('parcel-final-v7');
                     if (saved) records.value = JSON.parse(saved);
                 });
 
-                watch(records, (newVal) => { localStorage.setItem('parcel-final-v6.1', JSON.stringify(newVal)); }, { deep: true });
-
-                const addItem = () => form.value.items.push({ name: '', platform: '', date: '' });
-                const removeItem = (index) => form.value.items.splice(index, 1);
-                const startEdit = (index) => {
-                    isEditing.value = true;
-                    editIndex.value = index;
-                    form.value = JSON.parse(JSON.stringify(records.value[index]));
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                };
-                const cancelEdit = () => { isEditing.value = false; editIndex.value = null; form.value = initialForm(); };
+                watch(records, (newVal) => { localStorage.setItem('parcel-final-v7', JSON.stringify(newVal)); }, { deep: true });
 
                 const submitForm = async () => {
-                    if (!form.value.lineName) return alert('請填寫 LINE 名字');
-                    if (!form.value.memberId) return alert('請填寫 代收代號');
-                    const payload = JSON.parse(JSON.stringify(form.value));
-                    lastMemberId.value = payload.memberId; 
-                    if (isEditing.value) { records.value[editIndex.value] = payload; } else { records.value.unshift(payload); }
-                    try {
-                        const googleUrl = 'https://script.google.com/macros/s/AKfycbzNgSVKqz0br5ZLbjotQsp6sCShkQep-FPfDlauZjFrVAwkjWlKEq4xWXEKxGuWd1Fa/exec';
-                        await fetch(googleUrl, {
-                            method: 'POST',
-                            mode: 'no-cors',
-                            body: JSON.stringify({
-                                ...payload,
-                                itemsSummary: payload.items.map(i => `${i.name} [${i.platform}]`).join('\n'),
-                                datesSummary: payload.items.map(i => i.date || '未填').join('\n'),
-                                services: payload.selectedServices.join(', '),
-                                status: isEditing.value ? '【修改件】' : '【新申請】'
-                            })
-                        });
-                    } catch (e) { console.log('Sync error'); }
-                    if (!isEditing.value) { showAddressCard.value = true; window.scrollTo({ top: 0, behavior: 'smooth' }); } 
-                    else { alert('修改已同步至試算表！'); }
-                    cancelEdit();
+                    if (!form.value.lineName || !form.value.memberId) return alert('請填寫完整');
+                    lastMemberId.value = form.value.memberId;
+                    if (isEditing.value) records.value[editIndex.value] = { ...form.value };
+                    else records.value.unshift({ ...form.value });
+                    showAddressCard.value = true;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 };
 
                 const copyFullFormat = () => {
-                    const textToCopy = `• 이름：${lastMemberId.value}
-• 전화번호：010-6214-5732
-• 우편번호：04570
-• 주소：서울특별시 중구 마장로 62 5층 510호 JDON－(${lastMemberId.value})`;
-                    
-                    navigator.clipboard.writeText(textToCopy).then(() => {
-                        const statusElement = document.getElementById('copy-status');
-                        statusElement.style.opacity = '1';
-                        setTimeout(() => statusElement.style.opacity = '0', 2000);
-                    }).catch(err => {
-                        alert('複製失敗，請手動選取資料卡內容');
-                    });
+                    const text = `• 이름：${lastMemberId.value}\n• 전화번호：010-6214-5732\n• 우편번호：04570\n• 주소：서울특별시 중구 마장로 62 우일프라자 5층 510호 JDON－(${lastMemberId.value})`;
+                    navigator.clipboard.writeText(text);
+                    const btn = document.getElementById('copy-status');
+                    if(btn) btn.style.opacity = '1';
                 };
 
-                return { form, records, serviceOptions, isEditing, addItem, removeItem, submitForm, startEdit, cancelEdit, showAddressCard, lastMemberId, copyFullFormat };
+                return { form, records, isEditing, submitForm, showAddressCard, lastMemberId, copyFullFormat };
             }
         }).mount('#app');
     </script>

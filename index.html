@@ -33,16 +33,16 @@
                             <p class="text-slate-400 text-[11px] ml-2">💰 運費2026/04/16已更新(實際收費仍以運回時為準)</p>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-300 text-sm font-medium pt-2">
-                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>請記得於申請當天填寫此表單，若送出後短期內需要修改，可透過修改按鍵直接處理，不用重新送單(用外部瀏覽器填寫後續才能使用修改功能)。</p>
+                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>請記得於申請當天填寫此表單，若送出後同訂單短期內需要修改，可透過修改按鍵直接處理，不用重新送單(用外部瀏覽器填寫，後續才能使用修改功能)。</p>
                             <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>未重新申請請勿再次隨意使用代收資料。</p>
                             <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>未先詢問過的東西有權拒收，甚至直接拋棄。</p>
                             <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>氣壓瓶、含電池...等空運風險物品務必事先詢問，以免後續無法通關甚至罰款。</p>
-                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>賣家出貨後，請向對方索取單號並告知。</p>
+                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>賣家出貨後，請向對方索取單號並告知，這邊才能方便確認到貨與否。</p>
                             <p class="flex items-start md:col-span-2"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>收到表單表示已閱讀代收說明並且同意。</p>
                         </div>
                         <hr class="border-slate-700 my-4">
                         <div class="bg-slate-800/50 p-5 rounded-2xl border border-red-900/30">
-                            <p class="text-red-400 text-xs leading-relaxed font-bold">代收資料嚴禁作為其他私人用途(ex: 購買人資料/抽簽售/申請虛擬銀行帳號...等)，若收到店家聯絡一律會直接告知對方要取消，並會列入黑名單從此禁止交易往來，嚴重者將進一步處理，擅自用作私人使用，任何後果一律不負責，有無盜用資料都能查得到，切勿以身試法。</p>
+                            <p class="text-red-400 text-xs leading-relaxed font-bold">代收資料嚴禁作為其他私人用途(ex: 購買人資料/抽簽售/申請虛擬銀行帳號...等)，若收到店家聯絡一律會直接告知對方要取消，並會列入黑名單從此禁止交易往來，嚴重者將進一步處理。擅自用作私人使用，任何後果一律不負責，有無盜用資料都能查得到，切勿以身試法。</p>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                             </div>
                             <div>
                                 <div class="flex justify-between items-center mb-3">
-                                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider text-[10px]">代收品項明細(同訂單填一筆，不用新增訂單)</label>
+                                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider text-[10px]">代收品項明細(同店家同筆訂單中同時出貨的填一起，不用新增)</label>
                                     <button @click="addItem" class="text-xs text-blue-600 font-bold hover:text-blue-800 transition">+ 新增訂單</button>
                                 </div>
                                 <div v-for="(item, index) in form.items" :key="index" class="bg-white p-4 rounded-2xl mb-4 border border-slate-100 shadow-sm relative">

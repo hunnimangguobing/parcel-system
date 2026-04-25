@@ -23,21 +23,10 @@
                         <span class="text-2xl mr-3">📢</span>
                         <h2 class="text-white text-lg font-black tracking-wider">重要聲明</h2>
                     </div>
-                    <div class="space-y-4">
-                        <div class="flex flex-col items-start gap-2">
-                            <a href="https://sites.google.com/view/hunni-mangguobing/%E9%9F%93%E5%9C%8B%E4%BB%A3%E6%94%B6%E7%99%BC%E8%B2%A8%E5%9B%9E%E5%8F%B0?authuser=0" target="_blank" class="inline-flex items-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg text-sm">代收說明請點此 🔗</a>
-                            <p class="text-slate-400 text-[11px] ml-2">💰 運費2026/04/16已更新 (收費仍以運回時為準)</p>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-300 text-sm font-medium pt-2">
-                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>請記得於申請當天填寫此表單 (若送出後有需要做修改，可透過修改按鍵直接處理，不用重新送單)</p>
-                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>未重新申請請勿再次隨意使用代收資料</p>
-                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>未先詢問過的東西有權拒收，甚至直接拋棄，請據實申報品項以免後續無法通關</p>
-                            <p class="flex items-start md:col-span-2"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>收到表單表示已閱讀代收說明並且同意</p>
-                        </div>
-                        <hr class="border-slate-700 my-4">
-                        <div class="bg-slate-800/50 p-5 rounded-2xl border border-red-900/30">
-                            <p class="text-red-400 text-xs leading-relaxed font-bold">代收資料嚴禁作為其他私人用途，若收到店家聯絡一律會直接告知對方要取消，並會列入黑名單從此禁止交易往來。</p>
-                        </div>
+                    <div class="space-y-4 text-slate-300 text-sm">
+                        <p>⚠️ 請記得於申請當天填寫此表單</p>
+                        <p>⚠️ 未重新申請請勿再次隨意使用代收資料</p>
+                        <p class="text-red-400 text-xs font-bold">代收資料嚴禁作為其他私人用途，違者列入黑名單。</p>
                     </div>
                 </div>
             </div>
@@ -46,53 +35,14 @@
                 <div class="lg:col-span-5">
                     <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 sticky top-8">
                         <div class="bg-slate-900 p-6 flex justify-between items-center">
-                            <div>
-                                <h1 class="text-white text-xl font-black">📦 {{ isEditing ? '修改代收資訊' : '韓國代收運回申請表單' }}</h1>
-                            </div>
-                            <button v-if="isEditing" @click="cancelEdit" class="text-xs bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition">取消修改</button>
+                            <h1 class="text-white text-xl font-black">📦 {{ isEditing ? '修改代收資訊' : '韓國代收運回申請表單' }}</h1>
+                            <button v-if="isEditing" @click="cancelEdit" class="text-xs bg-red-500 text-white px-3 py-1 rounded-full">取消修改</button>
                         </div>
+                        
                         <div class="p-6 space-y-6">
                             <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-500 mb-1 ml-1">LINE 名字</label>
-                                    <input v-model="form.lineName" type="text" placeholder="您的LINE顯示名稱" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 transition">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-500 mb-1 ml-1">代收代號</label>
-                                    <input v-model="form.memberId" type="text" placeholder="例如: VIP01" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 transition">
-                                </div>
-                            </div>
-
-                            <div>
-                                <div class="flex justify-between items-center mb-3">
-                                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider text-[10px]">代收品項明細</label>
-                                    <button @click="addItem" class="text-xs text-blue-600 font-bold hover:text-blue-800 transition">+ 新增訂單</button>
-                                </div>
-                                <div v-for="(item, index) in form.items" :key="index" class="bg-white p-4 rounded-2xl mb-4 border border-slate-100 shadow-sm relative">
-                                    <button v-if="form.items.length > 1" @click="removeItem(index)" class="absolute top-3 right-3 text-slate-300 hover:text-red-400 transition text-sm">✕</button>
-                                    <div class="space-y-4">
-                                        <input v-model="item.name" type="text" placeholder="品項名稱 (例如: BTS手燈)" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 outline-none">
-                                        <div class="grid grid-cols-2 gap-3">
-                                            <input v-model="item.platform" type="text" placeholder="店家 / 平台" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 outline-none">
-                                            <input v-model="item.date" type="date" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 text-slate-600 outline-none">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-bold text-slate-500 uppercase mb-3 tracking-wider">額外服務項目</label>
-                                <div class="space-y-2">
-                                    <label v-for="(price, service) in serviceOptions" :key="service" class="flex items-center p-3.5 rounded-xl border border-slate-100 bg-slate-50 cursor-pointer transition shadow-sm">
-                                        <input type="checkbox" :value="service" v-model="form.selectedServices" class="w-4 h-4 rounded text-slate-900">
-                                        <span class="ml-3 text-sm font-bold text-slate-700">{{ service }}</span>
-                                        <span class="ml-auto text-xs font-black text-blue-600">{{ price }}</span>
-                                    </label>
-                                </div>
-                                <div class="mt-5">
-                                    <label class="block text-xs font-bold text-slate-500 mb-2 ml-1 text-[11px]">其他特殊需求或備註</label>
-                                    <textarea v-model="form.otherService" rows="3" placeholder="請在此輸入詳細說明..." class="w-full border-slate-200 rounded-2xl bg-slate-50 p-4 text-sm outline-none border focus:border-slate-400 transition"></textarea>
-                                </div>
+                                <input v-model="form.lineName" type="text" placeholder="LINE 名字" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm border">
+                                <input v-model="form.memberId" type="text" placeholder="代收代號" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm border">
                             </div>
 
                             <button @click="submitForm" class="w-full bg-slate-900 text-white py-4 rounded-3xl hover:bg-black transition duration-300 shadow-xl flex flex-col items-center justify-center">
@@ -104,29 +54,10 @@
                 </div>
 
                 <div class="lg:col-span-7">
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm min-h-[400px]">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 min-h-[400px]">
                         <h2 class="text-lg font-black mb-4">已接收申請總結</h2>
-                        <div class="space-y-4">
-                            <div v-for="(rec, idx) in records" :key="idx" class="border border-slate-200 bg-white rounded-2xl p-5 shadow-sm">
-                                <div class="flex justify-between items-start mb-4">
-                                    <div>
-                                        <div class="font-black text-slate-800 text-lg tracking-tight">{{ rec.lineName }}</div>
-                                        <div class="text-xs font-bold text-blue-600 uppercase">代號: {{ rec.memberId }}</div>
-                                    </div>
-                                    <button @click="startEdit(idx)" class="text-xs bg-blue-50 text-blue-600 px-6 py-2 rounded-lg font-bold">修改內容</button>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600">
-                                    <div class="bg-slate-50 p-3 rounded-xl">
-                                        <div class="font-bold mb-2">📦 包裹內容</div>
-                                        <ul class="space-y-1 italic"><li v-for="item in rec.items">{{ item.name }} | [{{ item.platform }}]</li></ul>
-                                    </div>
-                                    <div class="bg-slate-50 p-3 rounded-xl">
-                                        <div class="font-bold mb-2">🛠️ 服務需求</div>
-                                        <div class="flex flex-wrap gap-1"><span v-for="s in rec.selectedServices" class="bg-white px-2 py-0.5 rounded text-[10px] font-bold">{{ s }}</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="records.length === 0" class="text-center py-20 text-slate-400 font-bold">目前無任何申請紀錄</div>
+                        <div v-for="(rec, idx) in records" :key="idx" class="border border-slate-200 rounded-2xl p-4 mb-4">
+                            <div class="font-black">{{ rec.lineName }} (代號: {{ rec.memberId }})</div>
                         </div>
                     </div>
                 </div>
@@ -135,21 +66,25 @@
 
         <div v-if="showAddressCard" class="max-w-2xl mx-auto animate-in fade-in zoom-in duration-300">
             <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
-                <div class="bg-slate-900 p-8 text-center"><h2 class="text-white text-2xl font-black">申請已成功送出！</h2></div>
+                <div class="bg-slate-900 p-8 text-center">
+                    <h2 class="text-white text-2xl font-black mb-2">申請已成功送出！</h2>
+                </div>
+                
                 <div class="p-6 md:p-10 space-y-5">
-                    <div class="bg-slate-50 p-4 rounded-2xl text-center">
+                    <div class="bg-slate-50 p-4 rounded-2xl border text-center">
                         <span class="lang-kr">이름/수령인/받는사람</span> <span class="lang-tw">(收件人)</span>
                         <p class="text-xl font-black mt-2">{{ lastMemberId }}</p>
                     </div>
-                    <div class="bg-slate-50 p-4 rounded-2xl text-center">
-                        <span class="lang-kr">휴대전화/전화번호</span> <span class="lang-tw">(電話號碼)</span>
+                    <div class="bg-slate-50 p-4 rounded-2xl border text-center">
+                        <span class="lang-kr">휴대전話/전화번호</span> <span class="lang-tw">(電話號碼)</span>
                         <p class="text-xl font-black mt-2">010-6214-5732</p>
                     </div>
-                    <div class="bg-slate-50 p-4 rounded-2xl text-center">
+                    <div class="bg-slate-50 p-4 rounded-2xl border text-center">
                         <span class="lang-kr">우편번호</span> <span class="lang-tw">(郵遞區號)</span>
                         <p class="text-xl font-black mt-2">04570</p>
                     </div>
-                    <div class="bg-slate-50 p-5 rounded-2xl text-center">
+
+                    <div class="bg-slate-50 p-5 rounded-2xl border text-center">
                         <span class="lang-kr">주소</span> <span class="lang-tw">(地址)</span>
                         <div class="bg-white p-4 rounded-xl border mt-3 space-y-3">
                             <div class="pb-2 border-b border-slate-100">
@@ -162,16 +97,19 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="bg-slate-50 p-6 rounded-2xl border space-y-4">
-                        <div class="text-center border-b pb-4">
-                            <button @click="copyFullFormat" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-md">📋 一鍵複製整套代收資料</button>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl border space-y-3 text-[13px]">
-                            <p>但韓國購物網站地址填寫大多會用搜尋的方式自動帶入，若為此方式：</p>
-                            <p>1️⃣ 在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><b>서울특별시 중구 마장로 62</b></p>
-                            <p>2️⃣ 在 <span class="text-target-green font-black">【상세주소(詳細地址)】</span> 欄位輸入：<br><span class="bg-target-green-light font-bold px-1 text-emerald-700">5층 510호 JDON－({{ lastMemberId }})</span></p>
+                        <div class="text-[13px] text-slate-600 leading-relaxed space-y-4">
+                            <div class="text-center pb-4 border-b">
+                                <button @click="copyFullFormat" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-md">📋 一鍵複製整套格式</button>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border space-y-2">
+                                <p>1️⃣ 在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><b>서울특별시 중구 마장로 62</b></p>
+                                <p>2️⃣ 在 <span class="text-target-green font-black">【상세주소(詳細地址)】</span> 欄位輸入：<br><span class="bg-target-green-light font-bold px-1">5층 510호 JDON－({{ lastMemberId }})</span></p>
+                            </div>
                         </div>
                     </div>
+
                     <button @click="showAddressCard = false" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black">⬅️ 回到申請畫面</button>
                 </div>
             </div>
@@ -191,21 +129,11 @@
                 const form = ref({ lineName: '', memberId: '', items: [{ name: '', platform: '', date: '' }], selectedServices: [], otherService: '' });
 
                 onMounted(() => {
-                    const saved = localStorage.getItem('parcel-final-v8');
+                    const saved = localStorage.getItem('parcel-final-v7');
                     if (saved) records.value = JSON.parse(saved);
                 });
 
-                watch(records, (newVal) => { localStorage.setItem('parcel-final-v8', JSON.stringify(newVal)); }, { deep: true });
-
-                const addItem = () => form.value.items.push({ name: '', platform: '', date: '' });
-                const removeItem = (index) => form.value.items.splice(index, 1);
-                const startEdit = (index) => {
-                    isEditing.value = true;
-                    editIndex.value = index;
-                    form.value = JSON.parse(JSON.stringify(records.value[index]));
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                };
-                const cancelEdit = () => { isEditing.value = false; editIndex.value = null; form.value = { lineName: '', memberId: '', items: [{ name: '', platform: '', date: '' }], selectedServices: [], otherService: '' }; };
+                watch(records, (newVal) => { localStorage.setItem('parcel-final-v7', JSON.stringify(newVal)); }, { deep: true });
 
                 const submitForm = async () => {
                     if (!form.value.lineName || !form.value.memberId) return alert('請填寫完整');
@@ -219,10 +147,10 @@
                 const copyFullFormat = () => {
                     const text = `• 이름：${lastMemberId.value}\n• 전화번호：010-6214-5732\n• 우편번호：04570\n• 주소：서울특별시 중구 마장로 62 우일프라자 5층 510호 JDON－(${lastMemberId.value})`;
                     navigator.clipboard.writeText(text);
-                    alert('複製成功！');
+                    alert('已複製到剪貼簿！');
                 };
 
-                return { form, records, serviceOptions, isEditing, addItem, removeItem, submitForm, startEdit, cancelEdit, showAddressCard, lastMemberId, copyFullFormat };
+                return { form, records, isEditing, submitForm, showAddressCard, lastMemberId, copyFullFormat };
             }
         }).mount('#app');
     </script>

@@ -13,7 +13,7 @@
         /* 專屬綠色樣式 (Emerald 600) */
         .text-target-green { color: #10b981; }
         .bg-target-green-light { background-color: #ecfdf5; color: #059669; }
-        /* 僅新增此處用於調整空間 */
+        /* 調整空間用 */
         .service-item { min-height: 4.5rem; padding: 1rem 1.25rem; }
     </style>
 </head>
@@ -205,7 +205,7 @@
                         <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3 select-all text-center">
                             <div class="pb-2 border-b border-slate-100">
                                 <span class="text-[10px] bg-amber-100 text-amber-600 px-2 py-0.5 rounded font-black mb-1 inline-block">第一行 / 搜尋欄位</span>
-                                <p class="font-bold text-slate-700 text-lg">서울특별시 중구 마장路 62</p>
+                                <p class="font-bold text-slate-700 text-lg">서울특별시 중구 마장로 62</p>
                             </div>
                             <div>
                                 <span class="text-[10px] bg-target-green-light text-emerald-600 px-2 py-0.5 rounded font-black mb-1 inline-block">第二行 / 詳細地址</span>
@@ -224,9 +224,20 @@
                                 <div id="copy-status" class="text-xs text-blue-600 mt-2 font-bold opacity-0 transition-opacity">已完成複製！可以直接貼上。</div>
                             </div>
                             <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
-                                <p>但韓國購物網站地址填寫大多會用搜尋的方式自動帶入，若為此方式：</p>
+                                <p>但韓國購物網站地址填寫大多會用搜尋的方式自動帶入，郵遞區號也會一起自動出現，不需手動輸入，若為此方式：</p>
                                 <p>1️⃣ 在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><span class="bg-amber-50 text-amber-700 font-bold px-1">서울특별시 중구 마장路 62</span></p>
+                                <p class="text-[11px] text-slate-400 pl-4">(若出現흥인동 3-1，是正常的，新舊式地址之分)</p>
                                 <p>2️⃣ 在 <span class="text-target-green font-black">【상세주소(詳細地址)】</span> 欄位輸入：<br><span class="bg-target-green-light font-bold px-1 text-emerald-700">5층 510호 JDON－({{ lastMemberId }})</span></p>
+                            </div>
+
+                            <p class="text-red-500 font-black flex items-start">
+                                <span class="mr-1">‼️</span>
+                                <span>收件人常被隱碼，請務必在地址最後再打一次個人代號以利我這邊找貨‼️</span>
+                            </p>
+
+                            <div class="text-[12px] pt-2 border-t border-slate-200 text-slate-600">
+                                <p>📌 以上已提供基本說明，請填寫正確在 【배송정보(配送資料)】，不是【주문정보(訂購資料)】。</p>
+                                <p class="mt-2">📌 代收恕不提供其他更詳細教學，如若不會下單請以代下單服務進行委託。</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +256,7 @@
             setup() {
                 const serviceOptions = { 
                     '拆開並丟棄外包裝(可減輕重量但若商品有問題無法負責，且因已拆可能無法自行向賣家尋求售後)': '*免費',
-                    '拆開清點數量(就不會保留外包裝，會拍照錄影，若有需要後續可提供)': '*NT$50/箱', 
+                    '拆開清點數量(會拍照錄影)': '*NT$50/箱', 
                     '拆專僅運回內容物': '*費用私訊，下方備註張數', 
                     '專輯直接整個丟棄': '*NT$5/張，下方備註張數' 
                 };

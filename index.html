@@ -7,7 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
-        .addr-small { font-size: 0.7rem; color: #64748b; font-weight: bold; margin-left: 2px; }
+        .addr-label { font-size: 0.75rem; font-weight: 800; color: #475569; margin-right: 4px; }
+        .lang-kr { font-size: 0.9rem; font-weight: 800; }
+        .lang-tw { font-size: 0.75rem; color: #64748b; font-weight: bold; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen py-8 text-slate-800">
@@ -15,57 +17,76 @@
         
         <div v-if="showAddressCard" class="max-w-2xl mx-auto animate-in fade-in zoom-in duration-300">
             <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
-                <div class="bg-blue-600 p-8 text-center">
-                    <div class="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
-                        <span class="text-3xl text-white">✅</span>
+                <div class="bg-slate-900 p-8 text-center border-b border-white/10">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-500/20 rounded-full mb-4">
+                        <span class="text-3xl">✅</span>
                     </div>
                     <h2 class="text-white text-2xl font-black mb-2">申請已成功送出！</h2>
-                    <p class="text-blue-100 text-sm font-bold">請將下方韓國收件資料填寫至購物網站</p>
+                    <p class="text-slate-400 text-sm font-bold">請將下方韓國收件資料填寫至購物網站</p>
                 </div>
                 
-                <div class="p-6 md:p-10 space-y-6">
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center">
+                <div class="p-6 md:p-10 space-y-5">
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
                         <div class="flex justify-center items-center mb-2">
-                            <span class="text-lg font-bold">👤 收件人</span>
-                            <span class="addr-small">(수령인/받는사람)</span>
+                            <span class="lang-kr">수령인/받는사람</span>
+                            <span class="lang-tw">(收件人)</span>
                         </div>
-                        <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all tracking-wider">
-                            {{ lastMemberId }}
-                        </p>
+                        <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all tracking-wider">{{ lastMemberId }}</p>
                     </div>
 
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center">
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
                         <div class="flex justify-center items-center mb-2">
-                            <span class="text-lg font-bold">📞 電話號碼</span>
-                            <span class="addr-small">(휴대전화)</span>
+                            <span class="lang-kr">휴대전화</span>
+                            <span class="lang-tw">(電話號碼)</span>
                         </div>
-                        <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all">010-6214-5732</p>
+                        <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all tracking-widest">010-6214-5732</p>
                     </div>
 
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center">
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
                         <div class="flex justify-center items-center mb-2">
-                            <span class="text-lg font-bold">📮 郵遞區號</span>
-                            <span class="addr-small">(우편번호)</span>
+                            <span class="lang-kr">우편번호</span>
+                            <span class="lang-tw">(郵遞區號)</span>
                         </div>
                         <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all">04570</p>
                     </div>
 
                     <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                        <div class="flex items-center mb-2">
-                            <span class="text-lg font-bold">📍 地址</span>
-                            <span class="addr-small">(주소)</span>
+                        <div class="flex justify-center items-center mb-3">
+                            <span class="lang-kr">주소</span>
+                            <span class="lang-tw">(地址)</span>
                         </div>
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2 select-all text-center md:text-left">
-                            <p class="font-bold text-slate-700">서울특별시 중구 마장로 62</p>
-                            <p class="font-black text-blue-600 text-lg leading-tight">5층 510호 JDON－({{ lastMemberId }})</p>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3 select-all text-center">
+                            <div class="pb-2 border-b border-slate-100">
+                                <span class="text-[10px] bg-amber-100 text-amber-600 px-2 py-0.5 rounded font-black mb-1 inline-block">第一行 / 搜尋欄位</span>
+                                <p class="font-bold text-slate-700 text-lg">서울특별시 중구 마장로 62</p>
+                            </div>
+                            <div>
+                                <span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded font-black mb-1 inline-block">第二行 / 詳細地址</span>
+                                <p class="font-black text-blue-600 text-xl">5층 510호 JDON－({{ lastMemberId }})</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-100 space-y-4">
-                        <div class="text-[11px] text-slate-600 leading-relaxed space-y-3 font-medium">
-                            <p>🔍 韓國網站大多使用搜尋方式：在 <span class="font-bold text-blue-600">【搜尋(검색)】</span> 欄位輸入第一行地址，若出現「흥인동3-1」是正常的(新舊地址之分)；郵遞區號通常會自動帶入。接著在 <span class="font-bold text-blue-600">【詳細地址(상세주소)】</span> 輸入第二行資訊。</p>
-                            <p class="text-red-500 font-bold">⚠️ 因收件人常被隱碼，請務必在詳細地址最後再打一次個人代號以利找貨‼️</p>
-                            <p>📌 請填寫在【배송정보(配送資料)】而非訂購資料。如不會下單請洽代下單服務，恕不提供教學。</p>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4">
+                        <div class="text-[13px] text-slate-600 leading-relaxed space-y-4">
+                            <p class="font-medium">💡 若為直接填寫地址的情況直接以上格式提供給對方即可。</p>
+                            
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                                <p>但韓國網站填寫方式大多會用搜尋的方式自動帶入，郵遞區號也會一起自動出現，不需手動輸入。若為此方式：</p>
+                                <p>1️⃣ 在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><span class="bg-amber-50 text-amber-700 font-bold px-1">서울특별시 중구 마장路 62</span></p>
+                                <p class="text-[11px] text-slate-400 pl-4">(若出現흥인동3-1，是正常的，新舊式地址之分)</p>
+                                <p>2️⃣ 在下一行 <span class="text-blue-600 font-black">【상세주소(詳細地址)】</span> 的部分輸入：<br><span class="bg-blue-50 text-blue-700 font-bold px-1">5층 510호 JDON－({{ lastMemberId }})</span></p>
+                            </div>
+
+                            <p class="text-red-500 font-black flex items-start">
+                                <span class="mr-1">‼️</span>
+                                <span>因收件人幾乎都會被隱碼，請務必在地址最後再打一次個人代號以利我這邊找貨</span>
+                            </p>
+
+                            <div class="text-[12px] pt-2 border-t border-slate-200">
+                                <p>📌 以上已提供基本說明，請填寫正確在 <span class="font-bold text-slate-900 text-sm">【배송정보(配送資料)】</span>，不是【주문정보(訂購資料)】</p>
+                                <p class="mt-2">⚠️ 代收恕不提供其他更詳細教學，如若不會下單請以代下單服務進行委託🙏</p>
+                            </div>
                         </div>
                     </div>
 
@@ -224,13 +245,11 @@
                     '拆專僅運回內容物': '*費用私訊，下方備註張數', 
                     '專輯直接整個丟棄': '*NT$5/張，下方備註張數' 
                 };
-                
                 const records = ref([]);
                 const isEditing = ref(false);
                 const editIndex = ref(null);
                 const showAddressCard = ref(false);
                 const lastMemberId = ref('');
-                
                 const initialForm = () => ({ lineName: '', memberId: '', items: [{ name: '', platform: '', date: '' }], selectedServices: [], otherService: '' });
                 const form = ref(initialForm());
 
@@ -254,16 +273,9 @@
                 const submitForm = async () => {
                     if (!form.value.lineName) return alert('請填寫 LINE 名字');
                     if (!form.value.memberId) return alert('請填寫 代收代號');
-                    
                     const payload = JSON.parse(JSON.stringify(form.value));
                     lastMemberId.value = payload.memberId; 
-
-                    if (isEditing.value) { 
-                        records.value[editIndex.value] = payload; 
-                    } else { 
-                        records.value.unshift(payload); 
-                    }
-                    
+                    if (isEditing.value) { records.value[editIndex.value] = payload; } else { records.value.unshift(payload); }
                     try {
                         const googleUrl = 'https://script.google.com/macros/s/AKfycbzNgSVKqz0br5ZLbjotQsp6sCShkQep-FPfDlauZjFrVAwkjWlKEq4xWXEKxGuWd1Fa/exec';
                         await fetch(googleUrl, {
@@ -278,13 +290,8 @@
                             })
                         });
                     } catch (e) { console.log('Sync error'); }
-                    
-                    if (!isEditing.value) {
-                        showAddressCard.value = true;
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    } else {
-                        alert('修改已同步至試算表！');
-                    }
+                    if (!isEditing.value) { showAddressCard.value = true; window.scrollTo({ top: 0, behavior: 'smooth' }); } 
+                    else { alert('修改已同步至試算表！'); }
                     cancelEdit();
                 };
                 return { form, records, serviceOptions, isEditing, addItem, removeItem, submitForm, startEdit, cancelEdit, showAddressCard, lastMemberId };

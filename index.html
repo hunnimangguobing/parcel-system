@@ -7,9 +7,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
-        /* 紅框標題部分：改為與代號一致的綠色 */
-        .lang-kr { font-size: 0.9rem; font-weight: 800; color: #10b981; }
-        .lang-tw { font-size: 0.75rem; color: #10b981; font-weight: bold; opacity: 0.8; }
+        /* 標題恢復正常顏色 */
+        .lang-kr { font-size: 0.9rem; font-weight: 800; color: #475569; }
+        .lang-tw { font-size: 0.75rem; color: #64748b; font-weight: bold; }
+        /* 專屬綠色樣式 (Emerald 600) */
+        .text-target-green { color: #10b981; }
+        .bg-target-green-light { background-color: #ecfdf5; color: #059669; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen py-8 text-slate-800">
@@ -199,8 +202,8 @@
                                 <p class="font-bold text-slate-700 text-lg">서울특별시 중구 마장로 62</p>
                             </div>
                             <div>
-                                <span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded font-black mb-1 inline-block">第二行 / 詳細地址</span>
-                                <p class="font-black text-slate-900 text-xl tracking-tight">5층 510호 JDON－<span class="text-emerald-600 font-black">({{ lastMemberId }})</span></p>
+                                <span class="text-[10px] bg-target-green-light text-emerald-600 px-2 py-0.5 rounded font-black mb-1 inline-block">第二行 / 詳細地址</span>
+                                <p class="font-black text-slate-900 text-xl tracking-tight">5층 510호 JDON<span class="text-target-green">－({{ lastMemberId }})</span></p>
                             </div>
                         </div>
                     </div>
@@ -211,7 +214,7 @@
                             
                             <div class="mt-2 text-center pb-4 border-b border-slate-200">
                                 <button @click="copyFullFormat" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 shadow-md">
-                                    📋 一鍵複製整套格式
+                                    📋 一鍵複製整套代收地址內容
                                 </button>
                                 <div id="copy-status" class="text-xs text-blue-600 mt-2 font-bold opacity-0 transition-opacity">已完成複製！可以直接貼上。</div>
                             </div>
@@ -220,7 +223,7 @@
                                 <p>但韓國購物網站地址填寫大多會用搜尋的方式自動帶入，郵遞區號也會一起自動出現，不需手動輸入，若為此方式：</p>
                                 <p>1️⃣ 在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><span class="bg-amber-50 text-amber-700 font-bold px-1">서울특별시 중구 마장로 62</span></p>
                                 <p class="text-[11px] text-slate-400 pl-4">(若出現흥인동 3-1，是正常的，新舊式地址之分)</p>
-                                <p>2️⃣ 在下一行 <span class="text-blue-600 font-black">【상세주소(詳細地址)】</span> 的部分輸入：<br><span class="bg-blue-50 text-blue-700 font-bold px-1">5층 510호 JDON－({{ lastMemberId }})</span></p>
+                                <p>2️⃣ 在 <span class="text-target-green font-black">【상세주소(詳細地址)】</span> 欄位輸入：<br><span class="bg-target-green-light font-bold px-1 text-emerald-700">5층 510호 JDON－({{ lastMemberId }})</span></p>
                             </div>
 
                             <p class="text-red-500 font-black flex items-start">

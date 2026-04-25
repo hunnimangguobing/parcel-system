@@ -7,8 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
-        .lang-kr { font-size: 0.9rem; font-weight: 800; }
-        .lang-tw { font-size: 0.75rem; color: #64748b; font-weight: bold; }
+        /* 紅框標題部分：改為與代號一致的綠色 */
+        .lang-kr { font-size: 0.9rem; font-weight: 800; color: #10b981; }
+        .lang-tw { font-size: 0.75rem; color: #10b981; font-weight: bold; opacity: 0.8; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen py-8 text-slate-800">
@@ -165,7 +166,7 @@
                 <div class="p-6 md:p-10 space-y-5">
                     <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center relative">
                         <div class="flex justify-center items-center mb-2">
-                            <span class="lang-kr text-emerald-600">이름/수령인/받는사람</span>
+                            <span class="lang-kr">이름/수령인/받는사람</span>
                             <span class="lang-tw">(收件人)</span>
                         </div>
                         <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all tracking-wider">{{ lastMemberId }}</p>
@@ -173,7 +174,7 @@
 
                     <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
                         <div class="flex justify-center items-center mb-2">
-                            <span class="lang-kr text-emerald-600">휴대전화/전화번호</span>
+                            <span class="lang-kr">휴대전화/전화번호</span>
                             <span class="lang-tw">(電話號碼)</span>
                         </div>
                         <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all tracking-widest">010-6214-5732</p>
@@ -181,7 +182,7 @@
 
                     <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
                         <div class="flex justify-center items-center mb-2">
-                            <span class="lang-kr text-emerald-600">우편번호</span>
+                            <span class="lang-kr">우편번호</span>
                             <span class="lang-tw">(郵遞區號)</span>
                         </div>
                         <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all">04570</p>
@@ -189,7 +190,7 @@
 
                     <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center">
                         <div class="flex justify-center items-center mb-3">
-                            <span class="lang-kr text-emerald-600">주소</span>
+                            <span class="lang-kr">주소</span>
                             <span class="lang-tw">(地址)</span>
                         </div>
                         <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3 select-all text-center">
@@ -210,16 +211,16 @@
                             
                             <div class="mt-2 text-center pb-4 border-b border-slate-200">
                                 <button @click="copyFullFormat" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 shadow-md">
-                                    📋 一鍵複製整套代收地址格式
+                                    📋 一鍵複製整套格式
                                 </button>
                                 <div id="copy-status" class="text-xs text-blue-600 mt-2 font-bold opacity-0 transition-opacity">已完成複製！可以直接貼上。</div>
                             </div>
 
                             <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
                                 <p>但韓國購物網站地址填寫大多會用搜尋的方式自動帶入，郵遞區號也會一起自動出現，不需手動輸入，若為此方式：</p>
-                                <p>① 在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><span class="bg-amber-50 text-amber-700 font-bold px-1">서울특별시 중구 마장로 62</span></p>
+                                <p>1️⃣ 在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><span class="bg-amber-50 text-amber-700 font-bold px-1">서울특별시 중구 마장로 62</span></p>
                                 <p class="text-[11px] text-slate-400 pl-4">(若出現흥인동 3-1，是正常的，新舊式地址之分)</p>
-                                <p>② 在 <span class="text-blue-600 font-black">【상세주소(詳細地址)】</span> 欄位輸入：<br><span class="bg-blue-50 text-blue-700 font-bold px-1">5층 510호 JDON－({{ lastMemberId }})</span></p>
+                                <p>2️⃣ 在下一行 <span class="text-blue-600 font-black">【상세주소(詳細地址)】</span> 的部分輸入：<br><span class="bg-blue-50 text-blue-700 font-bold px-1">5층 510호 JDON－({{ lastMemberId }})</span></p>
                             </div>
 
                             <p class="text-red-500 font-black flex items-start">
@@ -301,7 +302,6 @@
                     cancelEdit();
                 };
 
-                // 一鍵複製功能：地址合併為單行，所有欄位改用指定名稱
                 const copyFullFormat = () => {
                     const textToCopy = `• 이름：${lastMemberId.value}
 • 전화번호：010-6214-5732

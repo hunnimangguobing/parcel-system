@@ -7,8 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
+        /* 標題恢復正常顏色 */
         .lang-kr { font-size: 0.9rem; font-weight: 800; color: #475569; }
         .lang-tw { font-size: 0.75rem; color: #64748b; font-weight: bold; }
+        /* 專屬綠色樣式 (Emerald 600) */
         .text-target-green { color: #10b981; }
         .bg-target-green-light { background-color: #ecfdf5; color: #059669; }
     </style>
@@ -45,6 +47,38 @@
                                 <input v-model="form.memberId" type="text" placeholder="代收代號" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm border">
                             </div>
 
+                            <div>
+                                <div class="flex justify-between items-center mb-3">
+                                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider text-[10px]">代收品項明細 (同訂單填一筆，不用新增訂單)</label>
+                                    <button @click="addItem" class="text-xs text-blue-600 font-bold hover:text-blue-800 transition">+ 新增訂單</button>
+                                </div>
+                                <div v-for="(item, index) in form.items" :key="index" class="bg-white p-4 rounded-2xl mb-4 border border-slate-100 shadow-sm relative">
+                                    <button v-if="form.items.length > 1" @click="removeItem(index)" class="absolute top-3 right-3 text-slate-300 hover:text-red-400 transition text-sm">✕</button>
+                                    <div class="space-y-4">
+                                        <input v-model="item.name" type="text" placeholder="品項名稱" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 outline-none">
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <input v-model="item.platform" type="text" placeholder="店家 / 平台" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 outline-none">
+                                            <input v-model="item.date" type="date" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 text-slate-600 outline-none">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-3 tracking-wider">額外服務項目</label>
+                                <div class="space-y-2">
+                                    <label v-for="(price, service) in serviceOptions" :key="service" class="flex items-center p-3.5 rounded-xl border border-slate-100 bg-slate-50 hover:bg-slate-100/50 cursor-pointer transition shadow-sm">
+                                        <input type="checkbox" :value="service" v-model="form.selectedServices" class="w-4 h-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900">
+                                        <span class="ml-3 text-sm font-bold text-slate-700">{{ service }}</span>
+                                        <span class="ml-auto text-xs font-black text-blue-600 tracking-tighter">{{ price }}</span>
+                                    </label>
+                                </div>
+                                <div class="mt-5">
+                                    <label class="block text-xs font-bold text-slate-500 mb-2 ml-1 text-[11px]">其他特殊需求或備註</label>
+                                    <textarea v-model="form.otherService" rows="3" placeholder="請在此輸入詳細說明..." class="w-full border-slate-200 rounded-2xl bg-slate-50 p-4 text-sm outline-none border focus:border-slate-400 focus:bg-white transition"></textarea>
+                                </div>
+                            </div>
+
                             <button @click="submitForm" class="w-full bg-slate-900 text-white py-4 rounded-3xl hover:bg-black transition duration-300 shadow-xl flex flex-col items-center justify-center">
                                 <span class="text-xl font-black">{{ isEditing ? '確認修改內容' : '確認送出申請' }}</span>
                                 <span class="text-[11px] font-bold text-slate-400 mt-1">(送出後會跳出韓國收件資料)</span>
@@ -54,10 +88,19 @@
                 </div>
 
                 <div class="lg:col-span-7">
-                    <div class="bg-white rounded-3xl p-6 border border-slate-200 min-h-[400px]">
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm min-h-[400px]">
                         <h2 class="text-lg font-black mb-4">已接收申請總結</h2>
-                        <div v-for="(rec, idx) in records" :key="idx" class="border border-slate-200 rounded-2xl p-4 mb-4">
-                            <div class="font-black">{{ rec.lineName }} (代號: {{ rec.memberId }})</div>
+                        <div v-for="(rec, idx) in records" :key="idx" class="border border-slate-200 bg-white rounded-2xl p-5 shadow-sm mb-4 transition">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <div class="font-black text-slate-800 text-lg leading-tight">{{ rec.lineName }}</div>
+                                    <div class="text-xs font-bold text-blue-600 uppercase tracking-tighter">代號: {{ rec.memberId }}</div>
+                                </div>
+                                <button @click="startEdit(idx)" class="text-xs bg-blue-50 text-blue-600 px-6 py-2 rounded-lg font-bold hover:bg-blue-100 transition shadow-sm">修改內容</button>
+                            </div>
+                        </div>
+                        <div v-if="records.length === 0" class="text-center py-20 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">
+                            <p class="text-slate-400 font-bold text-sm">目前無任何申請紀錄</p>
                         </div>
                     </div>
                 </div>
@@ -66,17 +109,18 @@
 
         <div v-if="showAddressCard" class="max-w-2xl mx-auto animate-in fade-in zoom-in duration-300">
             <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
-                <div class="bg-slate-900 p-8 text-center">
+                <div class="bg-slate-900 p-8 text-center border-b border-white/10">
                     <h2 class="text-white text-2xl font-black mb-2">申請已成功送出！</h2>
+                    <p class="text-slate-400 text-sm font-bold">請將下方韓國收件資料填寫至購物網站</p>
                 </div>
                 
                 <div class="p-6 md:p-10 space-y-5">
-                    <div class="bg-slate-50 p-4 rounded-2xl border text-center">
+                    <div class="bg-slate-50 p-4 rounded-2xl border text-center relative">
                         <span class="lang-kr">이름/수령인/받는사람</span> <span class="lang-tw">(收件人)</span>
                         <p class="text-xl font-black mt-2">{{ lastMemberId }}</p>
                     </div>
                     <div class="bg-slate-50 p-4 rounded-2xl border text-center">
-                        <span class="lang-kr">휴대전話/전화번호</span> <span class="lang-tw">(電話號碼)</span>
+                        <span class="lang-kr">휴대전화/전화번호</span> <span class="lang-tw">(電話號碼)</span>
                         <p class="text-xl font-black mt-2">010-6214-5732</p>
                     </div>
                     <div class="bg-slate-50 p-4 rounded-2xl border text-center">
@@ -99,18 +143,20 @@
                     </div>
 
                     <div class="bg-slate-50 p-6 rounded-2xl border space-y-4">
-                        <div class="text-[13px] text-slate-600 leading-relaxed space-y-4">
-                            <div class="text-center pb-4 border-b">
-                                <button @click="copyFullFormat" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-md">📋 一鍵複製整套格式</button>
+                        <div class="text-[13px] text-slate-600 leading-relaxed space-y-4 font-medium">
+                            <p>💡若為直接填寫地址的情況直接以上格式提供給對方即可。</p>
+                            <div class="mt-2 text-center pb-4 border-b">
+                                <button @click="copyFullFormat" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-md">📋一鍵複製整套代收資料</button>
+                                <div id="copy-status" class="text-xs text-blue-600 mt-2 font-bold opacity-0 transition-opacity">已完成複製！可以直接貼上。</div>
                             </div>
-                            <div class="bg-white p-4 rounded-xl border space-y-2">
-                                <p>1️⃣ 在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><b>서울특별시 중구 마장로 62</b></p>
-                                <p>2️⃣ 在 <span class="text-target-green font-black">【상세주소(詳細地址)】</span> 欄位輸入：<br><span class="bg-target-green-light font-bold px-1">5층 510호 JDON－({{ lastMemberId }})</span></p>
+                            <div class="bg-white p-4 rounded-xl border space-y-2 shadow-sm">
+                                <p>1️⃣在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><b>서울특별시 중구 마장로 62</b></p>
+                                <p>2️⃣在 <span class="text-target-green font-black">【상세주소(詳細地址)】</span> 欄位輸入：<br><span class="bg-target-green-light font-bold px-1">5층 510호 JDON－({{ lastMemberId }})</span></p>
                             </div>
                         </div>
                     </div>
 
-                    <button @click="showAddressCard = false" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black">⬅️ 回到申請畫面</button>
+                    <button @click="showAddressCard = false" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black">⬅️ 回到申請畫面確認資料</button>
                 </div>
             </div>
         </div>
@@ -120,37 +166,58 @@
         const { createApp, ref, onMounted, watch } = Vue;
         createApp({
             setup() {
-                const serviceOptions = { '拆開清點數量': '*NT$50/箱', '拆專僅運回內容物': '*費用私訊', '專輯直接整個丟棄': '*NT$5/張' };
+                const serviceOptions = { 
+                    '拆開清點數量(會拍照錄影)': '*NT$50/箱', 
+                    '拆專僅運回內容物': '*費用私訊，下方備註張數', 
+                    '專輯直接整個丟棄': '*NT$5/張，下方備註張數' 
+                };
                 const records = ref([]);
                 const isEditing = ref(false);
                 const editIndex = ref(null);
                 const showAddressCard = ref(false);
                 const lastMemberId = ref('');
-                const form = ref({ lineName: '', memberId: '', items: [{ name: '', platform: '', date: '' }], selectedServices: [], otherService: '' });
+                const initialForm = () => ({ lineName: '', memberId: '', items: [{ name: '', platform: '', date: '' }], selectedServices: [], otherService: '' });
+                const form = ref(initialForm());
 
                 onMounted(() => {
-                    const saved = localStorage.getItem('parcel-final-v7');
+                    const saved = localStorage.getItem('parcel-final-v6.1');
                     if (saved) records.value = JSON.parse(saved);
                 });
 
-                watch(records, (newVal) => { localStorage.setItem('parcel-final-v7', JSON.stringify(newVal)); }, { deep: true });
+                watch(records, (newVal) => { localStorage.setItem('parcel-final-v6.1', JSON.stringify(newVal)); }, { deep: true });
+
+                const addItem = () => form.value.items.push({ name: '', platform: '', date: '' });
+                const removeItem = (index) => form.value.items.splice(index, 1);
+                const startEdit = (index) => {
+                    isEditing.value = true;
+                    editIndex.value = index;
+                    form.value = JSON.parse(JSON.stringify(records.value[index]));
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+                const cancelEdit = () => { isEditing.value = false; editIndex.value = null; form.value = initialForm(); };
 
                 const submitForm = async () => {
                     if (!form.value.lineName || !form.value.memberId) return alert('請填寫完整');
-                    lastMemberId.value = form.value.memberId;
-                    if (isEditing.value) records.value[editIndex.value] = { ...form.value };
-                    else records.value.unshift({ ...form.value });
+                    lastMemberId.value = form.value.memberId; 
+                    if (isEditing.value) { records.value[editIndex.value] = JSON.parse(JSON.stringify(form.value)); } 
+                    else { records.value.unshift(JSON.parse(JSON.stringify(form.value))); }
                     showAddressCard.value = true;
                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                    cancelEdit();
                 };
 
                 const copyFullFormat = () => {
-                    const text = `• 이름：${lastMemberId.value}\n• 전화번호：010-6214-5732\n• 우편번호：04570\n• 주소：서울특별시 중구 마장로 62 우일프라자 5층 510호 JDON－(${lastMemberId.value})`;
-                    navigator.clipboard.writeText(text);
-                    alert('已複製到剪貼簿！');
+                    const textToCopy = `• 이름：${lastMemberId.value}\n• 전화번호：010-6214-5732\n• 우편번호：04570\n• 주소：서울특별시 중구 마장로 62 우일프라자 5층 510호 JDON－(${lastMemberId.value})`;
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        const statusElement = document.getElementById('copy-status');
+                        if(statusElement) {
+                            statusElement.style.opacity = '1';
+                            setTimeout(() => statusElement.style.opacity = '0', 2000);
+                        }
+                    });
                 };
 
-                return { form, records, isEditing, submitForm, showAddressCard, lastMemberId, copyFullFormat };
+                return { form, records, serviceOptions, isEditing, addItem, removeItem, submitForm, startEdit, cancelEdit, showAddressCard, lastMemberId, copyFullFormat };
             }
         }).mount('#app');
     </script>

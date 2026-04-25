@@ -51,7 +51,6 @@
                             </div>
                             <button v-if="isEditing" @click="cancelEdit" class="text-xs bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition">取消修改</button>
                         </div>
-                        
                         <div class="p-6 space-y-6">
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
@@ -63,7 +62,6 @@
                                     <input v-model="form.memberId" type="text" placeholder="例如: VIP01" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
                                 </div>
                             </div>
-
                             <div>
                                 <div class="flex justify-between items-center mb-3">
                                     <label class="text-xs font-bold text-slate-500 uppercase tracking-wider text-[10px]">代收品項明細 (同訂單填一筆，不用新增訂單)</label>
@@ -89,7 +87,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div>
                                 <label class="block text-xs font-bold text-slate-500 uppercase mb-3 tracking-wider">額外服務項目</label>
                                 <div class="space-y-2">
@@ -104,7 +101,6 @@
                                     <textarea v-model="form.otherService" rows="3" placeholder="請在此輸入詳細說明..." class="w-full border-slate-200 rounded-2xl bg-slate-50 p-4 text-sm outline-none border focus:border-slate-400 focus:bg-white transition"></textarea>
                                 </div>
                             </div>
-
                             <button @click="submitForm" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black text-lg hover:bg-black hover:shadow-xl transition duration-300 active:scale-[0.98]">
                                 {{ isEditing ? '確認修改內容' : '確認送出申請' }}
                             </button>
@@ -169,7 +165,7 @@
                 <div class="p-6 md:p-10 space-y-5">
                     <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center relative">
                         <div class="flex justify-center items-center mb-2">
-                            <span class="lang-kr">이름/수령인/받는사람</span>
+                            <span class="lang-kr text-emerald-600">이름/수령인/받는사람</span>
                             <span class="lang-tw">(收件人)</span>
                         </div>
                         <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all tracking-wider">{{ lastMemberId }}</p>
@@ -177,7 +173,7 @@
 
                     <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
                         <div class="flex justify-center items-center mb-2">
-                            <span class="lang-kr">휴대전화/전화번호</span>
+                            <span class="lang-kr text-emerald-600">휴대전화/전화번호</span>
                             <span class="lang-tw">(電話號碼)</span>
                         </div>
                         <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all tracking-widest">010-6214-5732</p>
@@ -185,15 +181,15 @@
 
                     <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
                         <div class="flex justify-center items-center mb-2">
-                            <span class="lang-kr">우편번호</span>
+                            <span class="lang-kr text-emerald-600">우편번호</span>
                             <span class="lang-tw">(郵遞區號)</span>
                         </div>
                         <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all">04570</p>
                     </div>
 
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center">
                         <div class="flex justify-center items-center mb-3">
-                            <span class="lang-kr">주소</span>
+                            <span class="lang-kr text-emerald-600">주소</span>
                             <span class="lang-tw">(地址)</span>
                         </div>
                         <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3 select-all text-center">
@@ -213,17 +209,17 @@
                             <p>💡 若為直接填寫地址的情況直接以上格式提供給對方即可。</p>
                             
                             <div class="mt-2 text-center pb-4 border-b border-slate-200">
-                                <button @click="copyFullFormat" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 shadow-md">
-                                    📋 一鍵複製所有資料
+                                <button @click="copyFullFormat" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 shadow-md">
+                                    📋 一鍵複製整套代收地址格式
                                 </button>
-                                <div id="copy-status" class="text-xs text-emerald-600 mt-2 font-bold opacity-0 transition-opacity">已完成複製！可以直接貼上。</div>
+                                <div id="copy-status" class="text-xs text-blue-600 mt-2 font-bold opacity-0 transition-opacity">已完成複製！可以直接貼上。</div>
                             </div>
 
                             <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
                                 <p>但韓國購物網站地址填寫大多會用搜尋的方式自動帶入，郵遞區號也會一起自動出現，不需手動輸入，若為此方式：</p>
-                                <p>1️⃣ 在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><span class="bg-amber-50 text-amber-700 font-bold px-1">서울특별시 중구 마장로 62</span></p>
+                                <p>① 在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><span class="bg-amber-50 text-amber-700 font-bold px-1">서울특별시 중구 마장로 62</span></p>
                                 <p class="text-[11px] text-slate-400 pl-4">(若出現흥인동 3-1，是正常的，新舊式地址之分)</p>
-                                <p>2️⃣ 在下一行 <span class="text-blue-600 font-black">【상세주소(詳細地址)】</span> 的部分輸入：<br><span class="bg-blue-50 text-blue-700 font-bold px-1">5층 510호 JDON－({{ lastMemberId }})</span></p>
+                                <p>② 在 <span class="text-blue-600 font-black">【상세주소(詳細地址)】</span> 欄位輸入：<br><span class="bg-blue-50 text-blue-700 font-bold px-1">5층 510호 JDON－({{ lastMemberId }})</span></p>
                             </div>
 
                             <p class="text-red-500 font-black flex items-start">
@@ -231,7 +227,7 @@
                                 <span>收件人常被隱碼，請務必在地址最後再打一次個人代號以利我這邊找貨‼️</span>
                             </p>
 
-                            <div class="text-[12px] pt-2 border-t border-slate-200">
+                            <div class="text-[12px] pt-2 border-t border-slate-200 text-slate-600">
                                 <p>📌 以上已提供基本說明，請填寫正確在 【배송정보(配送資料)】，不是【주문정보(訂購資料)】。</p>
                                 <p class="mt-2">📌 代收恕不提供其他更詳細教學，如若不會下單請以代下單服務進行委託。</p>
                             </div>
@@ -305,12 +301,12 @@
                     cancelEdit();
                 };
 
-                // 修正的一鍵複製功能：地址合併為單行且自動帶入代號
+                // 一鍵複製功能：地址合併為單行，所有欄位改用指定名稱
                 const copyFullFormat = () => {
                     const textToCopy = `• 이름：${lastMemberId.value}
 • 전화번호：010-6214-5732
 • 우편번호：04570
-• 주소：서울특별시 中區 마장로 62 5층 510호 JDON－(${lastMemberId.value})`;
+• 주소：서울특별시 중구 마장로 62 5층 510호 JDON－(${lastMemberId.value})`;
                     
                     navigator.clipboard.writeText(textToCopy).then(() => {
                         const statusElement = document.getElementById('copy-status');

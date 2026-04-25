@@ -30,18 +30,18 @@
                     <div class="space-y-4">
                         <div class="flex flex-col items-start gap-2">
                             <a href="https://sites.google.com/view/hunni-mangguobing/%E9%9F%93%E5%9C%8B%E4%BB%A3%E6%94%B6%E7%99%BC%E8%B2%A8%E5%9B%9E%E5%8F%B0?authuser=0" target="_blank" class="inline-flex items-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg text-sm">代收說明請點此 🔗</a>
-                            <p class="text-slate-400 text-[11px] ml-2">💰 運費2026/04/16已更新 (收費仍以運回時為準)</p>
+                            <p class="text-slate-400 text-[11px] ml-2">💰 運費2026/04/16已更新(實際收費仍以運回時為準)</p>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-300 text-sm font-medium pt-2">
-                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>請記得於申請當天填寫此表單 (若送出後有需要做修改，可透過修改按鍵直接處理，不用重新送單)</p>
-                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>未重新申請請勿再次隨意使用代收資料</p>
-                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>未先詢問過的東西有權拒收，甚至直接拋棄，請據實申報品項以免後續無法通關</p>
-                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>賣家出貨後，請向對方索取單號並告知</p>
-                            <p class="flex items-start md:col-span-2"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>收到表單表示已閱讀代收說明並且同意</p>
+                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>請記得於申請當天填寫此表單(若送出後有需要做修改，可透過修改按鍵直接處理，不用重新送單)。</p>
+                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>未重新申請請勿再次隨意使用代收資料。</p>
+                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>未先詢問過的東西有權拒收，甚至直接拋棄，請據實申報品項以免後續無法通關。</p>
+                            <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>賣家出貨後，請向對方索取單號並告知。</p>
+                            <p class="flex items-start md:col-span-2"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>收到表單表示已閱讀代收說明並且同意。</p>
                         </div>
                         <hr class="border-slate-700 my-4">
                         <div class="bg-slate-800/50 p-5 rounded-2xl border border-red-900/30">
-                            <p class="text-red-400 text-xs leading-relaxed font-bold">代收資料嚴禁作為其他私人用途 (ex: 購買人資料 / 抽簽售 / 申請虛擬銀行帳號...等)，若收到店家聯絡一律會直接告知對方要取消，並會列入黑名單從此禁止交易往來，嚴重者將進一步處理，擅自用作私人使用，任何後果一律不負責，有無盜用資料都能查得到，切勿以身試法。</p>
+                            <p class="text-red-400 text-xs leading-relaxed font-bold">代收資料嚴禁作為其他私人用途(ex: 購買人資料/抽簽售/申請虛擬銀行帳號...等)，若收到店家聯絡一律會直接告知對方要取消，並會列入黑名單從此禁止交易往來，嚴重者將進一步處理，擅自用作私人使用，任何後果一律不負責，有無盜用資料都能查得到，切勿以身試法。</p>
                         </div>
                     </div>
                 </div>
@@ -64,13 +64,13 @@
                                     <input v-model="form.lineName" type="text" placeholder="您的LINE顯示名稱" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 mb-1 ml-1">代收代號</label>
+                                    <label class="block text-xs font-bold text-slate-500 mb-1 ml-1">個人代收代號</label>
                                     <input v-model="form.memberId" type="text" placeholder="例如: VIP01" class="w-full border-slate-200 rounded-xl bg-slate-50 p-3 text-sm outline-none border focus:border-slate-400 focus:bg-white transition">
                                 </div>
                             </div>
                             <div>
                                 <div class="flex justify-between items-center mb-3">
-                                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider text-[10px]">代收品項明細 (同訂單填一筆，不用新增訂單)</label>
+                                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider text-[10px]">代收品項明細(同訂單填一筆，不用新增訂單)</label>
                                     <button @click="addItem" class="text-xs text-blue-600 font-bold hover:text-blue-800 transition">+ 新增訂單</button>
                                 </div>
                                 <div v-for="(item, index) in form.items" :key="index" class="bg-white p-4 rounded-2xl mb-4 border border-slate-100 shadow-sm relative">
@@ -86,7 +86,7 @@
                                                 <input v-model="item.platform" type="text" placeholder="例如: weverse" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition">
                                             </div>
                                             <div>
-                                                <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">預計出貨日 (若無則跳過)</label>
+                                                <label class="block text-[11px] font-bold text-slate-400 mb-1 ml-1 uppercase tracking-tight">預計出貨日(若無則跳過)</label>
                                                 <input v-model="item.date" type="date" class="w-full border-slate-200 rounded-lg p-2.5 text-sm border bg-slate-50/50 focus:bg-white focus:border-slate-400 outline-none transition text-slate-600">
                                             </div>
                                         </div>
@@ -126,7 +126,7 @@
                                 <span class="bg-slate-900 text-white w-2 h-6 rounded-full mr-3"></span>
                                 已接收申請總結
                             </h2>
-                            <p class="text-slate-400 text-xs font-medium ml-5 leading-relaxed">僅用於送出後短期內再檢查&修改，不會長期保存 (但申請內容已回傳後台紀錄)</p>
+                            <p class="text-slate-400 text-xs font-medium ml-5 leading-relaxed">僅用於送出後短期內再檢查&修改，不會長期保存(但申請內容已回傳後台紀錄)</p>
                         </div>
                         <div class="space-y-4">
                             <div v-for="(rec, idx) in records" :key="idx" class="border border-slate-200 bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition">
@@ -169,7 +169,7 @@
                         <span class="text-3xl">✅</span>
                     </div>
                     <h2 class="text-white text-2xl font-black mb-2">申請已成功送出！</h2>
-                    <p class="text-slate-400 text-sm font-bold">請將下方韓國收件資料填寫至購物網站</p>
+                    <p class="text-slate-400 text-sm font-bold">請將下方韓國收件資料提供給賣方</p>
                 </div>
                 
                 <div class="p-6 md:p-10 space-y-5">
@@ -216,18 +216,18 @@
 
                     <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4">
                         <div class="text-[13px] text-slate-600 leading-relaxed space-y-4 font-medium">
-                            <p>💡 若為直接填寫地址的情況直接以上格式提供給對方即可。</p>
+                            <p>💡若為直接填寫地址的情況直接以上格式提供給對方即可。</p>
                             <div class="mt-2 text-center pb-4 border-b border-slate-200">
                                 <button @click="copyFullFormat" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 shadow-md">
-                                    📋 一鍵複製整套格式
+                                    📋 一鍵複製整套代收資料
                                 </button>
                                 <div id="copy-status" class="text-xs text-blue-600 mt-2 font-bold opacity-0 transition-opacity">已完成複製！可以直接貼上。</div>
                             </div>
                             <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
                                 <p>但韓國購物網站地址填寫大多會用搜尋的方式自動帶入，郵遞區號也會一起自動出現，不需手動輸入，若為此方式：</p>
-                                <p>1️⃣ 在 <span class="text-amber-600 font-black">【검색(搜尋)】</span> 欄位輸入：<br><span class="bg-amber-50 text-amber-700 font-bold px-1">서울특별시 중구 마장路 62</span></p>
+                                <p>1️⃣ 在<span class="text-amber-600 font-black">[검색(搜尋)]</span> 欄位輸入：<br><span class="bg-amber-50 text-amber-700 font-bold px-1">서울특별시 중구 마장로 62</span></p>
                                 <p class="text-[11px] text-slate-400 pl-4">(若出現흥인동 3-1，是正常的，新舊式地址之分)</p>
-                                <p>2️⃣ 在 <span class="text-target-green font-black">【상세주소(詳細地址)】</span> 欄位輸入：<br><span class="bg-target-green-light font-bold px-1 text-emerald-700">5층 510호 JDON－({{ lastMemberId }})</span></p>
+                                <p>2️⃣ 在<span class="text-target-green font-black">[상세주소(詳細地址)]</span> 欄位輸入：<br><span class="bg-target-green-light font-bold px-1 text-emerald-700">5층 510호 JDON－({{ lastMemberId }})</span></p>
                             </div>
 
                             <p class="text-red-500 font-black flex items-start">
@@ -236,7 +236,7 @@
                             </p>
 
                             <div class="text-[12px] pt-2 border-t border-slate-200 text-slate-600">
-                                <p>📌 以上已提供基本說明，請填寫正確在 【배송정보(配送資料)】，不是【주문정보(訂購資料)】。</p>
+                                <p>📌 以上已提供基本說明，請填寫正確在【배송정보(配送資料)】，不是【주문정보(訂購資料)】。</p>
                                 <p class="mt-2">📌 代收恕不提供其他更詳細教學，如若不會下單請以代下單服務進行委託。</p>
                             </div>
                         </div>
@@ -255,8 +255,8 @@
         createApp({
             setup() {
                 const serviceOptions = { 
-                    '拆開並丟棄外包裝(可減輕重量但若商品有問題無法負責，且因已拆可能無法自行向賣家尋求售後)': '*免費',
-                    '拆開清點數量(會拍照錄影)': '*NT$50/箱', 
+                    '拆開並丟棄外包裝(可減輕運回重量，但若商品有問題無法負責，且因已拆無法自行錄製開箱影片可能無法向賣家尋求售後)': '*免費',
+                    '拆開清點數量(就不會保留外包裝運回，會拍照錄影，若有需要後續可提供)': '*NT$50/箱', 
                     '拆專僅運回內容物': '*費用私訊，下方備註張數', 
                     '專輯直接整個丟棄': '*NT$5/張，下方備註張數' 
                 };
@@ -311,7 +311,7 @@
                 };
 
                 const copyFullFormat = () => {
-                    const textToCopy = `• 이름：${lastMemberId.value}\n• 전화번호：010-6214-5732\n• 우편번호：04570\n• 주소：서울특별시 중구 마장로 62 5층 510호 JDON－(${lastMemberId.value})`;
+                    const textToCopy = `• 이름：${lastMemberId.value}\n• 전화번호：010-6214-5732\n• 우편번호：04570\n• 주소：서울특별시 중구 마장로 62 우일프라자 5층 510호 JDON－(${lastMemberId.value})`;
                     navigator.clipboard.writeText(textToCopy).then(() => {
                         const statusElement = document.getElementById('copy-status');
                         statusElement.style.opacity = '1';

@@ -18,26 +18,28 @@
                 </div>
                 
                 <div class="space-y-4">
-                    <a href="https://sites.google.com/view/hunni-mangguobing/%E9%9F%93%E5%9C%8B%E4%BB%A3%E6%94%B6%E7%99%BC%E8%B2%A8%E5%9B%9E%E5%8F%B0?authuser=0" 
-                       target="_blank" 
-                       class="inline-flex items-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg text-sm">
-                        代收說明請點此 🔗
-                    </a>
+                    <div class="flex flex-col items-start gap-2">
+                        <a href="https://sites.google.com/view/hunni-mangguobing/%E9%9F%93%E5%9C%8B%E4%BB%A3%E6%94%B6%E7%99%BC%E8%B2%A8%E5%9B%9E%E5%8F%B0?authuser=0" 
+                           target="_blank" 
+                           class="inline-flex items-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-lg text-sm">
+                            代收說明請點此 🔗
+                        </a>
+                        <p class="text-slate-400 text-[11px] ml-2">💰 運費最新更新日期為2026/04/16 (仍以運回時為準)</p>
+                    </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-300 text-sm font-medium">
-                        <p class="flex items-start"><span class="mr-2 text-yellow-500">⚠️</span>未重新申請請勿再次隨意使用代收資料</p>
-                        <p class="flex items-start"><span class="mr-2 text-yellow-500">⚠️</span>未先詢問過的東西有權拒收，甚至直接拋棄</p>
-                        <p class="flex items-start"><span class="mr-2 text-yellow-500">⚠️</span>請記得於申請當天填寫此表單(若送出後有需要做修改，可透過修改按鍵直接處理，不用重新送單)</p>
-                        <p class="flex items-start"><span class="mr-2 text-yellow-500">⚠️</span>賣家出貨後，請向對方索取單號並告知</p>
-                        <p class="flex items-start"><span class="mr-2 text-yellow-500">⚠️</span>國際運費最新更新日期為2026/04/16(仍以運回時為準)</p>
-                        <p class="flex items-start"><span class="mr-2 text-yellow-500">⚠️</span>收到表單表示已閱讀代收說明且同意</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-300 text-sm font-medium pt-2">
+                        <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>請記得於申請當天填寫此表單 (若送出後有需要做修改，可透過修改按鍵直接處理，不用重新送單)</p>
+                        <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>未重新申請請勿再次隨意使用代收資料</p>
+                        <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>未先詢問過的東西有權拒收，甚至直接拋棄，請據實申報品項以面後續無法通關</p>
+                        <p class="flex items-start"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>賣家出貨後，請向對方索取單號並告知</p>
+                        <p class="flex items-start md:col-span-2"><span class="mr-2 text-yellow-500 shrink-0">⚠️</span>收到表單表示已閱讀代收說明並且同意</p>
                     </div>
 
                     <hr class="border-slate-700 my-4">
 
-                    <div class="bg-slate-800/50 p-4 rounded-2xl border border-red-900/30">
+                    <div class="bg-slate-800/50 p-5 rounded-2xl border border-red-900/30">
                         <p class="text-red-400 text-xs leading-relaxed font-bold">
-                            代收資料嚴禁作為其他私人用途 (ex: 購買人資料 / 抽簽售 / 申請虛擬銀行帳號...等)，擅自用作私人使用，任何後果一律不負責，若收到店家聯絡一律會直接告知對方要取消，嚴重者將進一步處理，有無盜用資料都能查得到，切勿以身試法。
+                            代收資料嚴禁作為其他私人用途 (ex: 購買人資料 / 抽簽售 / 申請虛擬銀行帳號...等)，若收到店家聯絡一律會直接告知對方要取消，並會列入黑名單從此禁止交易往來，嚴重者將進一步處理，擅自用作私人使用，任何後果一律不負責，有無盜用資料都能查得到，切勿以身試法。
                         </p>
                     </div>
                 </div>
@@ -126,7 +128,7 @@
                             已接收申請總結
                         </h2>
                         <p class="text-slate-400 text-xs font-medium ml-5 leading-relaxed">
-                            這僅用於送出後短期內再次檢查&修改，不會長期保存(但申請內容已回傳紀錄)
+                            這僅用於送出後短期內再次檢查&修改，不會長期保存 (但申請內容已回傳紀錄)
                         </p>
                     </div>
 
@@ -171,7 +173,6 @@
         const { createApp, ref, onMounted, watch } = Vue;
         createApp({
             setup() {
-                // 套用你提供的最新服務選項文字
                 const serviceOptions = { 
                     '拆開清點數量(會拍照錄影)': '*NT$50/箱', 
                     '拆專僅運回內容物': '*費用私訊，下方備註張數', 
@@ -181,15 +182,7 @@
                 const records = ref([]);
                 const isEditing = ref(false);
                 const editIndex = ref(null);
-                
-                const initialForm = () => ({ 
-                    lineName: '', 
-                    memberId: '', 
-                    items: [{ name: '', platform: '', date: '' }], 
-                    selectedServices: [], 
-                    otherService: '' 
-                });
-                
+                const initialForm = () => ({ lineName: '', memberId: '', items: [{ name: '', platform: '', date: '' }], selectedServices: [], otherService: '' });
                 const form = ref(initialForm());
 
                 onMounted(() => {
@@ -197,38 +190,24 @@
                     if (saved) records.value = JSON.parse(saved);
                 });
 
-                watch(records, (newVal) => { 
-                    localStorage.setItem('parcel-final-v6.1', JSON.stringify(newVal)); 
-                }, { deep: true });
+                watch(records, (newVal) => { localStorage.setItem('parcel-final-v6.1', JSON.stringify(newVal)); }, { deep: true });
 
                 const addItem = () => form.value.items.push({ name: '', platform: '', date: '' });
                 const removeItem = (index) => form.value.items.splice(index, 1);
-                
                 const startEdit = (index) => {
                     isEditing.value = true;
                     editIndex.value = index;
                     form.value = JSON.parse(JSON.stringify(records.value[index]));
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 };
-                
-                const cancelEdit = () => { 
-                    isEditing.value = false; 
-                    editIndex.value = null; 
-                    form.value = initialForm(); 
-                };
+                const cancelEdit = () => { isEditing.value = false; editIndex.value = null; form.value = initialForm(); };
 
                 const submitForm = async () => {
                     if (!form.value.lineName) return alert('請填寫 LINE 名字');
                     const payload = JSON.parse(JSON.stringify(form.value));
-                    
-                    if (isEditing.value) { 
-                        records.value[editIndex.value] = payload; 
-                    } else { 
-                        records.value.unshift(payload); 
-                    }
+                    if (isEditing.value) { records.value[editIndex.value] = payload; } else { records.value.unshift(payload); }
                     
                     try {
-                        // 使用你代碼中的網址
                         const googleUrl = 'https://script.google.com/macros/s/AKfycbzNgSVKqz0br5ZLbjotQsp6sCShkQep-FPfDlauZjFrVAwkjWlKEq4xWXEKxGuWd1Fa/exec';
                         await fetch(googleUrl, {
                             method: 'POST',
@@ -242,11 +221,9 @@
                             })
                         });
                     } catch (e) { console.log('Sync error'); }
-                    
                     alert(isEditing.value ? '修改已同步至試算表！' : '申請已提交成功！');
                     cancelEdit();
                 };
-
                 return { form, records, serviceOptions, isEditing, addItem, removeItem, submitForm, startEdit, cancelEdit };
             }
         }).mount('#app');

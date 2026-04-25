@@ -34,31 +34,30 @@
                         </p>
                     </div>
 
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center">
+                        <div class="flex justify-center items-center mb-2">
+                            <span class="text-lg font-bold">📞 電話號碼</span>
+                            <span class="addr-small">(휴대전화)</span>
+                        </div>
+                        <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all">010-6214-5732</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center">
+                        <div class="flex justify-center items-center mb-2">
+                            <span class="text-lg font-bold">📮 郵遞區號</span>
+                            <span class="addr-small">(우편번호)</span>
+                        </div>
+                        <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all">04570</p>
+                    </div>
+
                     <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
                         <div class="flex items-center mb-2">
                             <span class="text-lg font-bold">📍 地址</span>
                             <span class="addr-small">(주소)</span>
                         </div>
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2 select-all">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2 select-all text-center md:text-left">
                             <p class="font-bold text-slate-700">서울특별시 중구 마장로 62</p>
-                            <p class="font-black text-blue-600 text-lg">5층 510호 JDON－{{ lastMemberId }}</p>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center">
-                            <div class="flex justify-center items-center mb-2">
-                                <span class="text-lg font-bold">📮 郵編</span>
-                                <span class="addr-small">(우편번호)</span>
-                            </div>
-                            <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all">04570</p>
-                        </div>
-                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-center">
-                            <div class="flex justify-center items-center mb-2">
-                                <span class="text-lg font-bold">📞 電話</span>
-                                <span class="addr-small">(휴대전화)</span>
-                            </div>
-                            <p class="text-xl font-black text-slate-900 bg-white p-3 rounded-xl border border-slate-200 select-all">010-6214-5732</p>
+                            <p class="font-black text-blue-600 text-lg leading-tight">5층 510호 JDON－({{ lastMemberId }})</p>
                         </div>
                     </div>
 
@@ -71,7 +70,7 @@
                     </div>
 
                     <button @click="showAddressCard = false" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black text-lg hover:bg-black transition duration-300 shadow-xl">
-                        ⬅️ 回到申請畫面
+                        ⬅️ 回到申請畫面確認資料
                     </button>
                 </div>
             </div>
